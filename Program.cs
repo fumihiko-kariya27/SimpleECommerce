@@ -1,5 +1,8 @@
 using Microsoft.EntityFrameworkCore;
+using SimpleECommerce.InfraStructure;
+using SimpleECommerce.InfraStructure.Catalog;
 using SimpleECommerce.Models.Context;
+using SimpleECommerce.Service.Catalog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,10 @@ builder.Services.AddDbContext<ECommerceDbContext>(
     )
 );
 
+// DI対称とするクラスの登録
+builder.Services.AddScoped<IProductRepository, ProductRepositoryImpl>();
+builder.Services.AddScoped<IProductService, ProductServiceImpl>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,7 +29,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// DBの初期データ投入
+using (IServiceScope scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ECommerceDbContext>();
+    DbInitializer.Seed(db);
+}
+
+    app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();

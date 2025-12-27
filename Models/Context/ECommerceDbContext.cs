@@ -10,8 +10,8 @@ namespace SimpleECommerce.Models.Context
 
         }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<ProductModel> Products { get; set; }
 
-        public DbSet<Category> Categories { get; set; }
+        public DbSet<CategoryModel> Categories { get; set; }
     }
 }
