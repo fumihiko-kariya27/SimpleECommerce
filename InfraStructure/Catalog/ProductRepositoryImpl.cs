@@ -7,11 +7,11 @@ using System.Linq.Expressions;
 
 namespace SimpleECommerce.InfraStructure.Catalog
 {
-    internal class ProductRepositoryImpl : IProductRepository
+    public class ProductRepositoryImpl : IProductRepository
     {
         private readonly ECommerceDbContext context;
 
-        internal ProductRepositoryImpl(ECommerceDbContext context)
+        public ProductRepositoryImpl(ECommerceDbContext context)
         { 
             this.context = context;
         }

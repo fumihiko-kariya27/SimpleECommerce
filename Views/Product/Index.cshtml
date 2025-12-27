@@ -1,0 +1,29 @@
+﻿@model IEnumerable<ProductResponse>
+
+@{
+    ViewData["title"] = "商品一覧";
+}
+
+<h1 class="page-title">商品一覧</h1>
+
+<table class="table table-striped table-hover product-table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(product => product.Id)</th>
+            <th>@Html.DisplayNameFor(product => product.Name)</th>
+            <th>@Html.DisplayNameFor(product => product.Description)</th>
+            <th>@Html.DisplayNameFor(product => product.Price)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ProductResponse p in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => p.Id)</td>
+                <td>@Html.DisplayFor(model => p.Name)</td>
+                <td>@Html.DisplayFor(model => p.Description)</td>
+                <td>@Html.DisplayFor(model => p.Price)</td>
+            </tr>
+        }
+    </tbody>
+</table>
