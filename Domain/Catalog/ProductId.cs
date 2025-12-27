@@ -5,11 +5,11 @@ namespace SimpleECommerce.Domain.Catalog
     // 商品IDを定義する
     public sealed class ProductId
     {
-        private readonly CategoryId category;
-        private readonly int id;
+        public CategoryId Category { get; init; }
+        public int Id { get; init; }
 
-        private readonly int Min = 0;
-        private readonly int Max = 9999;
+        private static readonly int Min = 0;
+        private static readonly int Max = 9999;
 
         internal ProductId(CategoryId category, int id)
         {
@@ -18,13 +18,13 @@ namespace SimpleECommerce.Domain.Catalog
                 throw new ArgumentException($"商品IDは{Min}から{Max}の間でなければなりません");
             }
 
-            this.category = category;
-            this.id = id;
+            this.Category = category;
+            this.Id = id;
         }
 
-        internal string Id
+        internal string Code
         {
-            get { return category.ToCode() + "_" + id.ToString().PadLeft(4, '0'); }
+            get { return Category.ToCode() + "_" + Id.ToString().PadLeft(4, '0'); }
         }
     }
 }

@@ -3,7 +3,7 @@ using SimpleECommerce.Models.Catalog;
 
 namespace SimpleECommerce.Models.Catalog
 {
-    public class Category
+    public class CategoryModel
     {
         public CategoryId Id { get; set; } = CategoryId.None;
 
@@ -11,6 +11,6 @@ namespace SimpleECommerce.Models.Catalog
 
         public DateTime UpdatedAt { get; set; }
 
-        public ICollection<Product> Products { get; } = new List<Product>();
+        public ICollection<ProductModel> Products { get; } = new List<ProductModel>();
     }
 }
