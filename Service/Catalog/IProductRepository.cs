@@ -4,7 +4,7 @@ using System.Linq.Expressions;
 
 namespace SimpleECommerce.Service.Catalog
 {
-    internal interface IProductRepository
+    public interface IProductRepository
     {
         internal IReadOnlyList<Product> Select(Expression<Func<ProductModel, bool>>? predicate = null);
     }

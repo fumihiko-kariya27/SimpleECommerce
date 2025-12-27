@@ -2,14 +2,14 @@
 
 namespace SimpleECommerce.Domain.Catalog
 {
-    internal class Product
+    public class Product
     {
         public ProductId Id { get; init; }
         public ProductName Name { get; init; }
         public Description Description { get; init; }
         public ProductPrice Price { get; init; }
 
-        internal Product(CategoryId category, int id, ProductName name, Description description, ProductPrice price)
+        public Product(CategoryId category, int id, ProductName name, Description description, ProductPrice price)
         {
             if (name == null) 
             { 

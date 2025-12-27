@@ -6,7 +6,7 @@ namespace SimpleECommerce.Service.Catalog
     {
         private readonly IProductRepository repository;
 
-        internal ProductServiceImpl(IProductRepository repository) 
+        public ProductServiceImpl(IProductRepository repository) 
         { 
             this.repository = repository;
         }

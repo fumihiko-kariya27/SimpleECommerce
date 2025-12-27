@@ -1,10 +1,10 @@
 ﻿namespace SimpleECommerce.Domain.Catalog
 {
-    internal class ProductName
+    public class ProductName
     {
         public string Name { get; init; } = string.Empty;
 
-        internal ProductName(string name)
+        public ProductName(string name)
         {
             if (string.IsNullOrWhiteSpace(name)) 
             {

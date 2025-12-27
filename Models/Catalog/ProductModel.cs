@@ -16,7 +16,7 @@ public class ProductModel
 
     public string Name { get; set; } = string.Empty;
 
-    public string Desc { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
 
     public int Price { get; set; }
 
@@ -27,7 +27,7 @@ public class ProductModel
     internal Product ToDomain()
     {
         ProductName productName = new (Name);
-        Description description = new(Desc);
+        Description description = new(Description);
         ProductPrice price = new(Price);
         return new(CategoryId, Id, productName, description, price);
     }

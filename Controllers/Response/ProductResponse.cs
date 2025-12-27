@@ -1,23 +1,29 @@
 ﻿using SimpleECommerce.Domain.Catalog;
+using System.ComponentModel.DataAnnotations;
 
 namespace SimpleECommerce.Controllers.Response
 {
-    internal class ProductResponse
+    public class ProductResponse
     {
-        private readonly string _id;
+        [Display(Name = "商品ID")]
+        public string Id { get; }
 
-        private readonly string _name;
+        [Display(Name = "商品名")]
+        public string Name { get; }
 
-        private readonly string? _description;
+        [Display(Name = "説明")]
+        public string? Description { get; }
 
-        private readonly int _price;
+        [DataType(DataType.Currency)]
+        [Display(Name = "価格")]
+        public int Price { get; }
 
-        internal ProductResponse(Product domainProduct)
+        public ProductResponse(Product domainProduct)
         {
-            this._id = domainProduct.Id.Code;
-            this._name = domainProduct.Name.Name;
-            this._description = domainProduct.Description.Desc;
-            this._price = domainProduct.Price.price;
+            this.Id = domainProduct.Id.Code;
+            this.Name = domainProduct.Name.Name;
+            this.Description = domainProduct.Description.Desc;
+            this.Price = domainProduct.Price.price;
         }
     }
 }

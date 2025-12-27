@@ -1,12 +1,12 @@
 ﻿namespace SimpleECommerce.Domain.Catalog
 {
-    internal class ProductPrice : IComparable
+    public class ProductPrice : IComparable
     {
         public int price { get; init; }
 
         private static readonly int MIN = 0;
 
-        internal ProductPrice(int price)
+        public ProductPrice(int price)
         {
             if (price < MIN)
             {
