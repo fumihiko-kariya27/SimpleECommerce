@@ -6,6 +6,6 @@ namespace SimpleECommerce.Service.Catalog
 {
     public interface IProductRepository
     {
-        internal IReadOnlyList<Product> Select(Expression<Func<ProductModel, bool>>? predicate = null);
+        internal Task<IReadOnlyList<Product>> SelectAsync(Expression<Func<ProductModel, bool>>? predicate = null);
     }
 }

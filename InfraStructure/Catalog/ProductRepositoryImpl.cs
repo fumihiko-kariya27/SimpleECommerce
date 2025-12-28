@@ -1,4 +1,5 @@
-﻿using SimpleECommerce.Domain.Catalog;
+﻿using Microsoft.EntityFrameworkCore;
+using SimpleECommerce.Domain.Catalog;
 using SimpleECommerce.Models.Catalog;
 using SimpleECommerce.Models.Context;
 using SimpleECommerce.Service.Catalog;
@@ -16,7 +17,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
             this.context = context;
         }
 
-        public IReadOnlyList<Product> Select(Expression<Func<ProductModel, bool>>? predicate = null)
+        public async Task<IReadOnlyList<Product>> SelectAsync(Expression<Func<ProductModel, bool>>? predicate = null)
         {
             IQueryable<ProductModel> query = context.Products.AsQueryable();
 
@@ -26,7 +27,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
                 query = query.Where(predicate);
             }
 
-            List<ProductModel> products = query.ToList();
+            List<ProductModel> products = await query.ToListAsync();
             List<Product> ret = new List<Product>();
             foreach (ProductModel product in products)
             {

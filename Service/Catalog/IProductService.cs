@@ -4,6 +4,6 @@ namespace SimpleECommerce.Service.Catalog
 {
     public interface IProductService
     {
-        internal IReadOnlyList<Product> List();
+        internal Task<IReadOnlyList<Product>> ListAsync();
     }
 }
