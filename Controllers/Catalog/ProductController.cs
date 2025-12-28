@@ -20,5 +20,12 @@ namespace SimpleECommerce.Controllers.Catalog
             IEnumerable<ProductResponse> response = ret.Select(p => new ProductResponse(p)).ToList();
             return View(response);
         }
+
+        public async Task<ProductCsvResponse> Csv()
+        {
+            IReadOnlyList<Product> ret = await service.ListAsync();
+            IEnumerable<ProductResponse> response = ret.Select(p => new ProductResponse(p)).ToList();
+            return new ProductCsvResponse(response);
+        }
     }
 }
