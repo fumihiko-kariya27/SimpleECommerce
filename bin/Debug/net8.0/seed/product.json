@@ -1,0 +1,436 @@
+[
+  {
+    "CategoryId": 1,
+    "Id": 1023,
+    "Name": "食品サンプル商品001",
+    "Price": 480,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 22,
+    "Id": 2205,
+    "Name": "スマートフォンサンプル商品002",
+    "Price": 42000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 31,
+    "Id": 3108,
+    "Name": "おもちゃサンプル商品003",
+    "Price": 1800,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 14,
+    "Id": 1402,
+    "Name": "アクセサリーサンプル商品004",
+    "Price": 1500,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 40,
+    "Id": 4001,
+    "Name": "家具サンプル商品005",
+    "Price": 9800,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+
+  {
+    "CategoryId": 3,
+    "Id": 3011,
+    "Name": "日用品サンプル商品006",
+    "Price": 350,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 24,
+    "Id": 2409,
+    "Name": "オーディオサンプル商品007",
+    "Price": 15000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 52,
+    "Id": 5203,
+    "Name": "旅行用品サンプル商品008",
+    "Price": 3200,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 11,
+    "Id": 1107,
+    "Name": "レディースファッションサンプル商品009",
+    "Price": 3800,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 63,
+    "Id": 6304,
+    "Name": "DIY・工具サンプル商品010",
+    "Price": 2200,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+
+  {
+    "CategoryId": 2,
+    "Id": 2004,
+    "Name": "飲料サンプル商品011",
+    "Price": 160,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 21,
+    "Id": 2104,
+    "Name": "パソコンサンプル商品012",
+    "Price": 52000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 32,
+    "Id": 3204,
+    "Name": "書籍サンプル商品013",
+    "Price": 900,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 41,
+    "Id": 4104,
+    "Name": "インテリアサンプル商品014",
+    "Price": 2800,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 60,
+    "Id": 6004,
+    "Name": "美容サンプル商品015",
+    "Price": 1800,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+
+  {
+    "CategoryId": 1,
+    "Id": 1024,
+    "Name": "食品サンプル商品016",
+    "Price": 520,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 22,
+    "Id": 2206,
+    "Name": "スマートフォンサンプル商品017",
+    "Price": 45000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 31,
+    "Id": 3109,
+    "Name": "おもちゃサンプル商品018",
+    "Price": 1500,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 14,
+    "Id": 1403,
+    "Name": "アクセサリーサンプル商品019",
+    "Price": 1800,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 40,
+    "Id": 4002,
+    "Name": "家具サンプル商品020",
+    "Price": 12000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+
+  {
+    "CategoryId": 3,
+    "Id": 3012,
+    "Name": "日用品サンプル商品021",
+    "Price": 420,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 24,
+    "Id": 2410,
+    "Name": "オーディオサンプル商品022",
+    "Price": 18000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 52,
+    "Id": 5204,
+    "Name": "旅行用品サンプル商品023",
+    "Price": 3500,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 11,
+    "Id": 1108,
+    "Name": "レディースファッションサンプル商品024",
+    "Price": 4200,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 63,
+    "Id": 6305,
+    "Name": "DIY・工具サンプル商品025",
+    "Price": 2500,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+
+  {
+    "CategoryId": 2,
+    "Id": 2005,
+    "Name": "飲料サンプル商品026",
+    "Price": 180,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 21,
+    "Id": 2105,
+    "Name": "パソコンサンプル商品027",
+    "Price": 58000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 32,
+    "Id": 3205,
+    "Name": "書籍サンプル商品028",
+    "Price": 1200,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 41,
+    "Id": 4105,
+    "Name": "インテリアサンプル商品029",
+    "Price": 3500,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 60,
+    "Id": 6005,
+    "Name": "美容サンプル商品030",
+    "Price": 2200,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+
+  {
+    "CategoryId": 1,
+    "Id": 1025,
+    "Name": "食品サンプル商品031",
+    "Price": 600,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 22,
+    "Id": 2207,
+    "Name": "スマートフォンサンプル商品032",
+    "Price": 38000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 31,
+    "Id": 3110,
+    "Name": "おもちゃサンプル商品033",
+    "Price": 2000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 14,
+    "Id": 1404,
+    "Name": "アクセサリーサンプル商品034",
+    "Price": 2200,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 40,
+    "Id": 4003,
+    "Name": "家具サンプル商品035",
+    "Price": 15000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+
+  {
+    "CategoryId": 3,
+    "Id": 3013,
+    "Name": "日用品サンプル商品036",
+    "Price": 500,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 24,
+    "Id": 2411,
+    "Name": "オーディオサンプル商品037",
+    "Price": 22000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 52,
+    "Id": 5205,
+    "Name": "旅行用品サンプル商品038",
+    "Price": 3800,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 11,
+    "Id": 1109,
+    "Name": "レディースファッションサンプル商品039",
+    "Price": 4500,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 63,
+    "Id": 6306,
+    "Name": "DIY・工具サンプル商品040",
+    "Price": 2800,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+
+  {
+    "CategoryId": 2,
+    "Id": 2006,
+    "Name": "飲料サンプル商品041",
+    "Price": 200,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 21,
+    "Id": 2106,
+    "Name": "パソコンサンプル商品042",
+    "Price": 68000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 32,
+    "Id": 3206,
+    "Name": "書籍サンプル商品043",
+    "Price": 800,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 41,
+    "Id": 4106,
+    "Name": "インテリアサンプル商品044",
+    "Price": 4200,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 60,
+    "Id": 6006,
+    "Name": "美容サンプル商品045",
+    "Price": 2500,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+
+  {
+    "CategoryId": 1,
+    "Id": 1026,
+    "Name": "食品サンプル商品046",
+    "Price": 700,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 22,
+    "Id": 2208,
+    "Name": "スマートフォンサンプル商品047",
+    "Price": 50000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 31,
+    "Id": 3111,
+    "Name": "おもちゃサンプル商品048",
+    "Price": 2200,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 14,
+    "Id": 1405,
+    "Name": "アクセサリーサンプル商品049",
+    "Price": 2500,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 40,
+    "Id": 4004,
+    "Name": "家具サンプル商品050",
+    "Price": 18000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+
+  {
+    "CategoryId": 3,
+    "Id": 3014,
+    "Name": "日用品サンプル商品051",
+    "Price": 550,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 24,
+    "Id": 2412,
+    "Name": "オーディオサンプル商品052",
+    "Price": 25000,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  },
+  {
+    "CategoryId": 52,
+    "Id": 5206,
+    "Name": "旅行用品サンプル商品053",
+    "Price": 4200,
+    "CreatedAt": "2024-01-01T00:00:00Z",
+    "UpdatedAt": "2024-01-01T00:00:00Z"
+  }
+]

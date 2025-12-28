@@ -11,9 +11,9 @@ namespace SimpleECommerce.Service.Catalog
             this.repository = repository;
         }
 
-        public IReadOnlyList<Product> List()
+        public async Task<IReadOnlyList<Product>> ListAsync()
         {
-            return repository.Select();
+            return await repository.SelectAsync();
         }
     }
 }

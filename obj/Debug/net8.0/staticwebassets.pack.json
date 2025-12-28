@@ -9,6 +9,10 @@
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\work\\personal\\fumihiko\\workspace\\SimpleECommerceSolution\\SimpleECommerce\\wwwroot\\css\\table.css",
+      "PackagePath": "staticwebassets\\css\\table.css"
+    },
+    {
       "Id": "C:\\work\\personal\\fumihiko\\workspace\\SimpleECommerceSolution\\SimpleECommerce\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
     },

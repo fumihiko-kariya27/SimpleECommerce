@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "YROpu0vGcYEMef5cGWjF4G5agTOfLbqm6xHBDvYBNn0=",
+  "Hash": "TZVvrjZLAiZibksXun1flsLnI7SxFMG1QdY5Xbov8wA=",
   "Source": "SimpleECommerce",
   "BasePath": "_content/SimpleECommerce",
   "Mode": "Default",
@@ -72,6 +72,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
+    },
+    {
+      "Identity": "C:\\work\\personal\\fumihiko\\workspace\\SimpleECommerceSolution\\SimpleECommerce\\wwwroot\\css\\table.css",
+      "SourceId": "SimpleECommerce",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\work\\personal\\fumihiko\\workspace\\SimpleECommerceSolution\\SimpleECommerce\\wwwroot\\",
+      "BasePath": "_content/SimpleECommerce",
+      "RelativePath": "css/table.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\table.css"
     },
     {
       "Identity": "C:\\work\\personal\\fumihiko\\workspace\\SimpleECommerceSolution\\SimpleECommerce\\wwwroot\\favicon.ico",

@@ -14,9 +14,9 @@ namespace SimpleECommerce.Controllers.Catalog
             this.service = service;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            IReadOnlyList<Product> ret = service.List();
+            IReadOnlyList<Product> ret = await service.ListAsync();
             IEnumerable<ProductResponse> response = ret.Select(p => new ProductResponse(p)).ToList();
             return View(response);
         }
