@@ -31,5 +31,10 @@ namespace SimpleECommerce.Domain.Catalog
             this.Description = description;
             this.Price = price;
         }
+
+        public override string ToString()
+        {
+            return $"商品コード:{Id.Code} 商品名:{Name.Name}";
+        }
     }
 }
