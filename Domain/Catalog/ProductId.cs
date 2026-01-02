@@ -8,8 +8,8 @@ namespace SimpleECommerce.Domain.Catalog
         public CategoryId Category { get; init; }
         public int Id { get; init; }
 
-        private static readonly int Min = 0;
-        private static readonly int Max = 9999;
+        internal static readonly int Min = 0;
+        internal static readonly int Max = 9999;
 
         internal ProductId(CategoryId category, int id)
         {
@@ -25,6 +25,11 @@ namespace SimpleECommerce.Domain.Catalog
         internal string Code
         {
             get { return Category.ToCode() + "_" + Id.ToString().PadLeft(4, '0'); }
+        }
+
+        public override string ToString()
+        {
+            return this.Code;
         }
     }
 }
