@@ -6,30 +6,22 @@
 
 <div class="page-header">
     <h1 class="page-title">商品一覧</h1>
-
     <form asp-controller="Product" asp-action="Csv" method="get">
         <button type="submit" class="btn-download">CSVダウンロード</button>
     </form>
 </div>
-
-<table class="table table-striped table-hover product-table">
-    <thead>
-        <tr>
-            <th>@Html.DisplayNameFor(product => product.Id)</th>
-            <th>@Html.DisplayNameFor(product => product.Name)</th>
-            <th>@Html.DisplayNameFor(product => product.Description)</th>
-            <th>@Html.DisplayNameFor(product => product.Price)</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (ProductResponse p in Model)
-        {
-            <tr>
-                <td>@Html.DisplayFor(model => p.Id)</td>
-                <td>@Html.DisplayFor(model => p.Name)</td>
-                <td>@Html.DisplayFor(model => p.Description)</td>
-                <td>@Html.DisplayFor(model => p.Price)</td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="product-grid">
+@foreach (var p in Model)
+{
+    <div class="product-card">
+        <div class="product-image">
+            <img src="~/images/products/@(p.Id).jpg" alt="@(p.Name)" onerror="this.src='/images/noimage.jpg';" />
+        </div>
+        <div class="product-info">
+            <h3 class="product-name">@p.Name</h3>
+            <p class="product-description">@p.Description</p>
+            <p class="product-price">@p.Price.ToString("C0")</p>
+        </div>
+    </div>
+}
+</div>
