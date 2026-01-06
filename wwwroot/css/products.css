@@ -6,6 +6,7 @@
 }
 
 .product-card {
+    position: relative;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 12px;
@@ -55,4 +56,42 @@
     margin-top: 8px;
     font-size: 1rem;
     color: #333;
+}
+
+.card-menu {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+}
+
+.menu-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 24px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    min-width: 120px;
+    z-index: 10;
+}
+
+.menu-dropdown a {
+    display: block;
+    padding: 8px 12px;
+    color: #333;
+    text-decoration: none;
+}
+
+.menu-dropdown a:hover {
+    background-color: #f0f0f0;
 }

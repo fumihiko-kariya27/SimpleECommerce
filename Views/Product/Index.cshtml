@@ -4,6 +4,10 @@
     ViewData["title"] = "商品一覧";
 }
 
+@section Scripts{
+    <script src="~/js/products.js" defer></script>
+}
+
 <div class="page-header">
     <h1 class="page-title">商品一覧</h1>
     <form asp-controller="Product" asp-action="Csv" method="get">
@@ -13,7 +17,15 @@
 <div class="product-grid">
 @foreach (var p in Model)
 {
+    
     <div class="product-card">
+        <div class="card-menu">
+            <button class="menu-button" data-menu="@(p.Id)">:</button>
+            <div class="menu-dropdown" id="menu-@(p.Id)">
+                <a asp-controller="Product" asp-action="Edit" asp-route-id="@(p.Id)">編集</a>
+                <a asp-controller="Product" asp-action="Delete" asp-route-id="@(p.Id)">削除</a>
+            </div>
+        </div>
         <div class="product-image">
             <img src="~/images/products/@(p.Id).jpg" alt="@(p.Name)" onerror="this.src='/images/noimage.jpg';" />
         </div>
