@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SimpleECommerce.Domain.Catalog;
 using SimpleECommerce.Domain.Catalog.Categories;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
@@ -31,6 +32,9 @@ namespace SimpleECommerce.Controllers.Request
         [Range(0, 100000, ErrorMessage = "{0}は{1}～{2}の間で指定してください")]
         [Display(Name = "価格")]
         public int Price { get; set; }
+
+        [Display(Name = "商品画像")]
+        public IFormFile? Image { get; set; }
 
         internal Product ToDomain()
         {

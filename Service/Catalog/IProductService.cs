@@ -1,4 +1,5 @@
 ﻿using SimpleECommerce.Domain.Catalog;
+using SimpleECommerce.Domain.Catalog.Categories;
 
 namespace SimpleECommerce.Service.Catalog
 {
@@ -8,8 +9,12 @@ namespace SimpleECommerce.Service.Catalog
 
         Task<bool> IsExistAsync(Product product);
 
-        Task RegisterAsync(Product product);
+        Task<bool> IsExistAsync(ProductId id);
+
+        Task RegisterAsync(Product product, IFormFile? image);
 
         Task<bool> IsUniqueProduct(Product product);
+
+        Task<Product> Get(ProductId productId);
     }
 }

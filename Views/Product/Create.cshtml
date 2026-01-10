@@ -1,12 +1,11 @@
 ﻿@{
     ViewData["Title"] = "商品登録";
-    ViewData["readOnly"] = false;
 }
 
 <h4>商品登録</h4>
-<form asp-action="Create" method="post">
+<form enctype="multipart/form-data" asp-action="Create" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <partial name="_ProductRequest"/>
+    <partial name="_ProductRequest" model="Model" />
     <div class="form-group">
         <input type="submit" name="登録" value="登録" class="btn btn-primary" />
     </div>

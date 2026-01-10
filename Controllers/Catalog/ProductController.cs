@@ -2,8 +2,10 @@
 using SimpleECommerce.Controllers.Request;
 using SimpleECommerce.Controllers.Response;
 using SimpleECommerce.Domain.Catalog;
+using SimpleECommerce.Domain.Catalog.Categories;
 using SimpleECommerce.Domain.Exception;
 using SimpleECommerce.Service.Catalog;
+using SimpleECommerce.Service.Image;
 
 namespace SimpleECommerce.Controllers.Catalog
 {
@@ -25,11 +27,11 @@ namespace SimpleECommerce.Controllers.Catalog
 
         public IActionResult Create()
         { 
-            return View();
+            return View(new ProductRequest());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Category,Id,Name,Desc,Price")] ProductRequest request)
+        public async Task<IActionResult> Create([Bind("Category,Id,Name,Desc,Price,Image")] ProductRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -39,13 +41,34 @@ namespace SimpleECommerce.Controllers.Catalog
             try
             {
                 Product product = request.ToDomain();
-                await service.RegisterAsync(product);
+                await service.RegisterAsync(product, request.Image);
                 return RedirectToAction(nameof(Index));
             }
-            catch (ProductAlreadyExistException ex) 
+            catch (ImageSizeOutOfRangeException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return View(request);
+            }
+            catch (ProductAlreadyExistException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return View(request);
+            }
+        }
+
+        [HttpGet("Product/Edit/{category}/{productId}")]
+        public async Task<IActionResult> Edit(int category, int productId)
+        {
+            try
+            {
+                ProductId id = new ProductId((CategoryId)category, productId);
+                Product product = await service.Get(id);
+                return View(new ProductResponse(product));
+            }
+            catch (ProductNotExistException ex)
+            {
+                ModelState.AddModelError(string.Empty, ex.Message);
+                return NotFound();
             }
         }
 
