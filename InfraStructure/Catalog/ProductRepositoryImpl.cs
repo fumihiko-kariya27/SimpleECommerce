@@ -18,7 +18,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
             this.context = context;
         }
 
-        public async Task<(bool success, Product? product)> TrySelect(CategoryId category, int productId)
+        public async Task<(bool, Product?)> TrySelect(CategoryId category, int productId)
         {
             ProductModel? ret = await context.Products.Where(p => p.Category.Id == category && p.Id == productId).FirstOrDefaultAsync();
             return ret != null ? (true, ret.ToDomain()) : (false, null);
@@ -56,6 +56,12 @@ namespace SimpleECommerce.InfraStructure.Catalog
 
             await context.AddAsync(row);
             context.SaveChanges();
+        }
+
+        public async Task<(bool, Product?)> SelectByPrimayAsync(ProductId productId)
+        {
+            ProductModel? ret = await context.Products.Where(p => p.CategoryId == productId.Category && p.Id == productId.Id).SingleOrDefaultAsync();
+            return ret != null ? (true, ret.ToDomain()) : (false, null);
         }
     }
 }

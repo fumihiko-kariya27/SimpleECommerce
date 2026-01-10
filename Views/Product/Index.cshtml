@@ -17,17 +17,29 @@
 <div class="product-grid">
 @foreach (var p in Model)
 {
-    
     <div class="product-card">
         <div class="card-menu">
             <button class="menu-button" data-menu="@(p.Id)">:</button>
             <div class="menu-dropdown" id="menu-@(p.Id)">
-                <a asp-controller="Product" asp-action="Edit" asp-route-id="@(p.Id)">編集</a>
-                <a asp-controller="Product" asp-action="Delete" asp-route-id="@(p.Id)">削除</a>
+                <a 
+                    asp-controller="Product" 
+                    asp-action="Edit" 
+                    asp-route-category="@(p.Category)"
+                    asp-route-productId="@(p.Id)"
+                >
+                編集
+                </a>
+                <a 
+                    asp-controller="Product" 
+                    asp-action="Delete" 
+                    asp-route-category="@(p.Category)"
+                    asp-route-productId="@(p.Id)">
+                削除
+                </a>
             </div>
         </div>
         <div class="product-image">
-            <img src="~/images/products/@(p.Id).jpg" alt="@(p.Name)" onerror="this.src='/images/noimage.jpg';" />
+            <img src="~/images/product/@(p.Category)/@(p.Id).jpg" alt="@(p.Name)" onerror="this.src='/images/noimage.jpg';" />
         </div>
         <div class="product-info">
             <h3 class="product-name">@p.Name</h3>

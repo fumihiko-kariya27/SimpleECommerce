@@ -8,28 +8,19 @@ namespace SimpleECommerce.Domain.Catalog
         public ProductName Name { get; init; }
         public Description Description { get; init; }
         public ProductPrice Price { get; init; }
+        public ProductImage Image { get; set; }
 
         public Product(CategoryId category, int id, ProductName name, Description description, ProductPrice price)
         {
-            if (name == null) 
-            { 
-                throw new ArgumentNullException("商品名にnullは設定できません");
-            }
-
-            if (description == null) 
-            {
-                throw new ArgumentNullException("商品説明にnullは設定できません");
-            }
-
-            if (price == null) 
-            {
-                throw new ArgumentNullException("商品価格にnullは設定できません");
-            }
+            ArgumentNullException.ThrowIfNull(name, "商品名にnullは設定できません");
+            ArgumentNullException.ThrowIfNull(description, "商品説明にnullは設定できません");
+            ArgumentNullException.ThrowIfNull(price, "商品価格にnullは設定できません");
 
             this.Id = new ProductId(category, id);
             this.Name = name;
             this.Description = description;
             this.Price = price;
+            this.Image = ProductImage.NoImage();
         }
 
         public override string ToString()

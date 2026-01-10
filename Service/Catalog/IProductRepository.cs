@@ -9,8 +9,10 @@ namespace SimpleECommerce.Service.Catalog
     {
         Task<IReadOnlyList<Product>> SelectAsync(Expression<Func<ProductModel, bool>>? predicate = null);
 
-        Task<(bool success, Product? product)> TrySelect(CategoryId category, int productId);
+        Task<(bool, Product?)> TrySelect(CategoryId category, int productId);
 
         Task RegisterAsync(Product product);
+
+        Task<(bool, Product?)> SelectByPrimayAsync(ProductId productId);
     }
 }

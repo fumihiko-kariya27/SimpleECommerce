@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.InfraStructure;
 using SimpleECommerce.InfraStructure.Catalog;
+using SimpleECommerce.InfraStructure.Image;
 using SimpleECommerce.Models.Context;
 using SimpleECommerce.Service.Catalog;
+using SimpleECommerce.Service.Image;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<ECommerceDbContext>(
 // DIëŒèÃÇ∆Ç∑ÇÈÉNÉâÉXÇÃìoò^
 builder.Services.AddScoped<IProductRepository, ProductRepositoryImpl>();
 builder.Services.AddScoped<IProductService, ProductServiceImpl>();
+builder.Services.AddScoped<IImageStorage, ImageStorageImpl>();
 
 var app = builder.Build();
 
