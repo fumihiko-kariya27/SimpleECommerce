@@ -1,11 +1,44 @@
-﻿@{
+﻿@using SimpleECommerce.Domain.Catalog.Categories
+@model SimpleECommerce.Controllers.Request.ProductRequest
+
+@{
     ViewData["Title"] = "商品登録";
 }
 
 <h4>商品登録</h4>
 <form enctype="multipart/form-data" asp-action="Create" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <partial name="_ProductRequest" model="Model" />
+    <div class="form-group mb-3">
+        <label asp-for="UploadFiles"></label>
+        <input type="file" asp-for="UploadFiles" class="form-control mt-2" accept="image/jpeg" multiple />
+    </div>
+    <div class="form-group">
+        <label asp-for="Category"></label>
+        <select 
+            asp-for="Category" class="form-control"
+            asp-items="Html.GetEnumSelectList<CategoryId>()">
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Id"></label>
+        <input asp-for="Id" class="form-control" />
+        <span asp-validation-for="Id" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Desc"></label>
+        <input asp-for="Desc" class="form-control" />
+        <span asp-validation-for="Desc" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
     <div class="form-group">
         <input type="submit" name="登録" value="登録" class="btn btn-primary" />
     </div>

@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ProductResponse>
+﻿@using SimpleECommerce.Controllers.Response
+@model IEnumerable<ProductResponse>
 
 @{
     ViewData["title"] = "商品一覧";
@@ -39,11 +40,20 @@
             </div>
         </div>
         <div class="product-image">
-            <img src="~/images/product/@(p.Category)/@(p.Id).jpg" alt="@(p.Name)" onerror="this.src='/images/noimage.jpg';" />
+        @foreach (int seq in p.imageSequence)
+        {
+            <img 
+                src="/product/image/@(p.Category)/@(p.Id)/@seq"
+                alt="@p.Name"
+                class="img-thumbnail"
+                style="max-width: 200px;"
+                onerror="this.src='/images/noimage.jpg';"
+            />
+        }
         </div>
         <div class="product-info">
             <h3 class="product-name">@p.Name</h3>
-            <p class="product-description">@p.Description</p>
+            <p class="product-description">@p.Desc</p>
             <p class="product-price">@p.Price.ToString("C0")</p>
         </div>
     </div>

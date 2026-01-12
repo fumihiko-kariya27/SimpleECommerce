@@ -8,7 +8,7 @@ namespace SimpleECommerce.Domain.Catalog
         public ProductName Name { get; init; }
         public Description Description { get; init; }
         public ProductPrice Price { get; init; }
-        public ProductImage Image { get; set; }
+        public IList<ProductImage> Images { get; init; }
 
         public Product(CategoryId category, int id, ProductName name, Description description, ProductPrice price)
         {
@@ -20,7 +20,7 @@ namespace SimpleECommerce.Domain.Catalog
             this.Name = name;
             this.Description = description;
             this.Price = price;
-            this.Image = ProductImage.NoImage();
+            this.Images = Array.Empty<ProductImage>();
         }
 
         public override string ToString()

@@ -11,7 +11,9 @@ namespace SimpleECommerce.Service.Catalog
 
         Task<bool> IsExistAsync(ProductId id);
 
-        Task RegisterAsync(Product product, IFormFile? image);
+        Task RegisterAsync(Product product);
+
+        Task<ProductImage> GetImageAsync(ProductId id, int sequence);
 
         Task<bool> IsUniqueProduct(Product product);
 
