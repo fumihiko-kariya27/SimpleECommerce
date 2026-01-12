@@ -1,26 +1,42 @@
-﻿namespace SimpleECommerce.Domain.Catalog
+﻿using Microsoft.IdentityModel.Tokens;
+using SimpleECommerce.Domain.Exception;
+using System.Text.RegularExpressions;
+
+namespace SimpleECommerce.Domain.Catalog
 {
     public class ProductImage
     {
-        // 画像ファイルが存在しない場合は以下の画像を使用する
-        private static readonly Uri defalutImage = new Uri("/images/noimage.jpg", UriKind.Relative);
+        private const int maxDataSize = 1024 * 1024;
 
-        public Uri Path { get; init; }
+        public string FileName { get; init; } = string.Empty;
+        public string ContentType { get; init; } = string.Empty;
+        public byte[] Data { get; init; } = new byte[0];
 
-        public ProductImage(Uri path) 
+        public ProductImage(string fileName, string contentType, byte[] data)
         {
-            if (!path.ToString().EndsWith(".jpg", StringComparison.OrdinalIgnoreCase)) 
+            if (String.IsNullOrWhiteSpace(fileName)) 
             {
-                // 商品画像はjpg形式のみを許可する
-                throw new ArgumentException("商品画像の拡張子はjpg形式のみが許可されています");
+                throw new ArgumentException("ファイル名に空白文字は設定できません");
             }
 
-            Path = path;
-        }
+            if (String.IsNullOrWhiteSpace(contentType))
+            {
+                throw new ArgumentException("コンテンツタイプに空白文字は設定できません");
+            }
 
-        internal static ProductImage NoImage()
-        {
-            return new ProductImage(defalutImage);
+            if (data == null || data.Length == 0)
+            {
+                throw new ArgumentException("画像データが設定されていません");
+            }
+
+            if (data.Length > maxDataSize) 
+            {
+                throw new ImageSizeOutOfRangeException($"画像サイズは{maxDataSize}byteまでで指定してください");
+            }
+
+            FileName = fileName;
+            ContentType = contentType;
+            Data = data;
         }
     }
 }

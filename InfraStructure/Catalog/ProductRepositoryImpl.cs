@@ -33,12 +33,18 @@ namespace SimpleECommerce.InfraStructure.Catalog
                 // 検索条件が指定されている場合のみ、指定条件でフィルタリングする
                 query = query.Where(predicate);
             }
-
+            query.Include(p => p.Images);
             List<ProductModel> products = await query.ToListAsync();
             List<Product> ret = new List<Product>();
             foreach (ProductModel product in products)
             {
-                ret.Add(product.ToDomain());
+                Product p = product.ToDomain();
+                foreach (ProductImageModel im in product.Images)
+                {
+                    ProductImage image = new ProductImage(im.FileName, im.ContentType, im.ImageData);
+                    p.Images.Add(image);
+                }
+                ret.Add(p);
             }
             return ret.ToImmutableList();
         }
@@ -55,7 +61,37 @@ namespace SimpleECommerce.InfraStructure.Catalog
             row.UpdatedAt = DateTime.Now;
 
             await context.AddAsync(row);
+
+            for (int i = 0; i < product.Images.Count; i++) 
+            {
+                ProductImageModel image = new();
+                image.CategoryId = product.Id.Category;
+                image.ProductId = product.Id.Id;
+                image.ImageData = product.Images[i].Data;
+                image.FileName = product.Images[i].FileName;
+                image.ContentType = product.Images[i].ContentType;
+                image.Sequence = i + 1;
+                await context.AddAsync(image);
+            }
+
             context.SaveChanges();
+        }
+
+        public async Task<(bool, ProductImage?)> SelectImageByPrimaryAsync(ProductId id, int sequence)
+        { 
+            ProductImageModel? model = await context.ProductImages.Where(i => 
+                i.CategoryId == id.Category && 
+                i.ProductId == id.Id && 
+                i.Sequence == sequence
+            ).SingleOrDefaultAsync();
+
+            if (model == null) 
+            {
+                // 画像がなかった場合の処理は検討中
+                return (false, null);
+            }
+
+            return (true, new ProductImage(model.FileName, model.ContentType, model.ImageData));
         }
 
         public async Task<(bool, Product?)> SelectByPrimayAsync(ProductId productId)

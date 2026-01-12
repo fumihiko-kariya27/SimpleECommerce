@@ -1,4 +1,5 @@
-﻿using SimpleECommerce.Domain.Catalog;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using SimpleECommerce.Domain.Catalog;
 using SimpleECommerce.Domain.Catalog.Categories;
 using SimpleECommerce.Domain.Exception;
 using SimpleECommerce.Service.Image;
@@ -9,9 +10,6 @@ namespace SimpleECommerce.Service.Catalog
     {
         private readonly IProductRepository repository;
         private readonly IImageStorage imageStorage;
-
-        // 商品画像のサイズの上限(単位：byte)
-        private readonly int maxImageSize = 1024 * 1024;
 
         public ProductServiceImpl(IProductRepository repository, IImageStorage imageStorage) 
         { 
@@ -41,13 +39,8 @@ namespace SimpleECommerce.Service.Catalog
             return ret.Count() > 0;
         }
 
-        public async Task RegisterAsync(Product product, IFormFile? image)
+        public async Task RegisterAsync(Product product)
         {
-            if (image != null && image.Length > maxImageSize) 
-            {
-                throw new ImageSizeOutOfRangeException($"商品画像は${maxImageSize}バイト以内で設定してください");
-            }
-
             if (await IsExistAsync(product)) 
             {
                 // 登録商品が既に登録済みである場合は異常終了とする
@@ -55,13 +48,17 @@ namespace SimpleECommerce.Service.Catalog
             }
 
             await repository.RegisterAsync(product);
-            if (image != null)
-            {
-                string uri = $"product/{((int)(product.Id.Category)).ToString("D2")}/{product.Id.Id.ToString("D4")}.jpg";
+        }
 
-                Uri path = await imageStorage.SaveAsync(image, uri);
-                product.Image = new ProductImage(path);
+        public async Task<ProductImage> GetImageAsync(ProductId id, int sequence)
+        {
+            var (exist, image) = await repository.SelectImageByPrimaryAsync(id, sequence);
+            if (!exist) 
+            {
+                // 商品画像が存在しない場合は異常終了する
+                throw new ProductImageNotExistException($"商品コード{id.Code}に{sequence}番の画像は存在しません");
             }
+            return image!;
         }
 
         public async Task<Product> Get(ProductId productId)

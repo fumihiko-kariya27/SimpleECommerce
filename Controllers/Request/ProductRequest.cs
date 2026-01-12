@@ -26,7 +26,7 @@ namespace SimpleECommerce.Controllers.Request
 
         [StringLength(500, ErrorMessage = "{0}は{1}文字以内で指定してください")]
         [Display(Name = "説明")]
-        public string Desc { get; set; } = string.Empty;
+        public string? Desc { get; set; }
 
         [Required(ErrorMessage = "{0}は必須です")]
         [Range(0, 100000, ErrorMessage = "{0}は{1}～{2}の間で指定してください")]
@@ -34,14 +34,27 @@ namespace SimpleECommerce.Controllers.Request
         public int Price { get; set; }
 
         [Display(Name = "商品画像")]
-        public IFormFile? Image { get; set; }
+        public IFormFile[] UploadFiles { get; set; } = Array.Empty<FormFile>();
 
         internal Product ToDomain()
         {
             ProductName name = new ProductName(Name);
             Description description = new Description(Desc);
             ProductPrice price = new ProductPrice(Price);
-            return new Product(Category, Id, name, description, price);
+            Product ret = new Product(Category, Id, name, description, price);
+            foreach (IFormFile file in UploadFiles)
+            {
+                byte[] data = Array.Empty<byte>();
+                using (MemoryStream st = new MemoryStream())
+                {
+                    file.CopyTo(st);
+                    data = st.ToArray();
+                }
+
+                ret.Images.Add(new ProductImage(file.FileName, file.ContentType, data));
+            }
+
+            return ret;
         }
     }
 }

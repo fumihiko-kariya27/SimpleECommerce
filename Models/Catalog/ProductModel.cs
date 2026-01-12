@@ -20,6 +20,8 @@ public class ProductModel
 
     public int Price { get; set; }
 
+    public ICollection<ProductImageModel> Images { get; } = new List<ProductImageModel>();
+
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }

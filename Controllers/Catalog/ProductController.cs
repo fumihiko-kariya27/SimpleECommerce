@@ -25,13 +25,26 @@ namespace SimpleECommerce.Controllers.Catalog
             return View(response);
         }
 
+        [HttpGet("Product/Edit/{category}/{productId}/{sequence}")]
+        public async Task<IActionResult> Images(int categoryId, int productId, int sequence)
+        {
+            if (!Enum.IsDefined(typeof(CategoryId), categoryId)) 
+            {
+                return NotFound();
+            }
+
+            ProductId id = new ProductId((CategoryId)categoryId, productId);
+            ProductImage image = await service.GetImageAsync(id, sequence);
+            return File(image.Data, image.ContentType);
+        }
+
         public IActionResult Create()
         { 
             return View(new ProductRequest());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("Category,Id,Name,Desc,Price,Image")] ProductRequest request)
+        public async Task<IActionResult> Create([Bind("Category,Id,Name,Desc,Price,UploadFiles")] ProductRequest request)
         {
             if (!ModelState.IsValid)
             {
@@ -41,7 +54,7 @@ namespace SimpleECommerce.Controllers.Catalog
             try
             {
                 Product product = request.ToDomain();
-                await service.RegisterAsync(product, request.Image);
+                await service.RegisterAsync(product);
                 return RedirectToAction(nameof(Index));
             }
             catch (ImageSizeOutOfRangeException ex)

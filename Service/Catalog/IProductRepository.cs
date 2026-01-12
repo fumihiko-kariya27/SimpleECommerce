@@ -13,6 +13,8 @@ namespace SimpleECommerce.Service.Catalog
 
         Task RegisterAsync(Product product);
 
+        Task<(bool, ProductImage?)> SelectImageByPrimaryAsync(ProductId id, int sequence);
+
         Task<(bool, Product?)> SelectByPrimayAsync(ProductId productId);
     }
 }
