@@ -13,10 +13,14 @@ namespace SimpleECommerce.Service.Catalog
 
         Task RegisterAsync(Product product);
 
+        Task ModifyAsync(Product product);
+
         Task<ProductImage> GetImageAsync(ProductId id, int sequence);
 
         Task<bool> IsUniqueProduct(Product product);
 
         Task<Product> Get(ProductId productId);
+
+        Task Delete(ProductId productId);
     }
 }

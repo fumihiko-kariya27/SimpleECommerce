@@ -47,7 +47,12 @@ namespace SimpleECommerce.Service.Catalog
                 throw new ProductAlreadyExistException(product);
             }
 
-            await repository.RegisterAsync(product);
+            await repository.InsertAsync(product);
+        }
+
+        public async Task ModifyAsync(Product product)
+        {
+            await repository.UpDateAsync(product);
         }
 
         public async Task<ProductImage> GetImageAsync(ProductId id, int sequence)
@@ -71,6 +76,11 @@ namespace SimpleECommerce.Service.Catalog
             }
 
             return product!;
+        }
+
+        public async Task Delete(ProductId productId)
+        {
+            await repository.DeleteByPrimaryAsync(productId);
         }
     }
 }

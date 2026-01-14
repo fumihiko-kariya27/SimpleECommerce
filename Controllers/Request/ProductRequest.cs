@@ -56,5 +56,16 @@ namespace SimpleECommerce.Controllers.Request
 
             return ret;
         }
+
+        internal static ProductRequest GetEditOrigin(Product org)
+        {
+            ProductRequest ret = new();
+            ret.Category = org.Id.Category;
+            ret.Id = org.Id.Id;
+            ret.Name = org.Name.Name;
+            ret.Desc = org.Description.Desc;
+            ret.Price = org.Price.price;
+            return ret;
+        }
     }
 }

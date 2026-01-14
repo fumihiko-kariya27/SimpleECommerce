@@ -72,17 +72,53 @@ namespace SimpleECommerce.Controllers.Catalog
         [HttpGet("Product/Edit/{category}/{productId}")]
         public async Task<IActionResult> Edit(int category, int productId)
         {
+            if (!Enum.IsDefined(typeof(CategoryId), category))
+            {
+                return NotFound();
+            }
+
             try
             {
                 ProductId id = new ProductId((CategoryId)category, productId);
                 Product product = await service.Get(id);
-                return View(new ProductResponse(product));
+                return View(ProductRequest.GetEditOrigin(product));
             }
             catch (ProductNotExistException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
                 return NotFound();
             }
+        }
+
+        [HttpPost("Product/Edit")]
+        public async Task<IActionResult> Edit([Bind("Category,Id,Name,Desc,Price,UploadFiles")] ProductRequest request)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(request);
+            }
+
+            Product product = request.ToDomain();
+
+            if (!await service.IsExistAsync(product))
+            {
+                return NotFound();
+            }
+
+            await service.ModifyAsync(product);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet("Product/Delete/{category}/{productId}")]
+        public async Task<IActionResult> Delete(int category, int productId)
+        {
+            if (!Enum.IsDefined(typeof(CategoryId), category))
+            {
+                return NotFound();
+            }
+
+            await service.Delete(new ProductId((CategoryId)category, productId));
+            return RedirectToAction(nameof(Index));
         }
 
         public async Task<IActionResult> IsUniqueProduct([Bind("Category,Id")] ProductRequest request)
