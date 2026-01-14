@@ -7,6 +7,12 @@
 
 @section Scripts{
     <script src="~/js/products.js" defer></script>
+    <script src="~/js/modal.js" defer></script>
+}
+
+@section Css{
+    <link rel="stylesheet" href="~/css/products.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/modal.css" asp-append-version="true" />
 }
 
 <div class="page-header">
@@ -14,6 +20,15 @@
     <form asp-controller="Product" asp-action="Csv" method="get">
         <button type="submit" class="btn-download">CSVダウンロード</button>
     </form>
+</div>
+<div id="modal" class="modal">
+    <div class="modal-content">
+        <p id="modal-message"></p>
+        <div class="modal-buttons">
+            <button id="modal-yes" class="btn btn-danger">はい</button>
+            <button id="modal-no" class="btn btn-secondary">いいえ</button>
+        </div>
+    </div>
 </div>
 <div class="product-grid">
 @foreach (var p in Model)
@@ -31,10 +46,10 @@
                 編集
                 </a>
                 <a 
-                    asp-controller="Product" 
-                    asp-action="Delete" 
-                    asp-route-category="@((int)p.Category)"
-                    asp-route-productId="@(p.Id)">
+                    href="#"
+                    class="delete-link"
+                    data-name="@(p.Name)"
+                    data-url="@Url.Action("Delete", "Product", new { category = (int)p.Category, productId = p.Id })">
                 削除
                 </a>
             </div>
