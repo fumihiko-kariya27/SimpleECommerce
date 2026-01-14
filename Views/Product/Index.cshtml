@@ -25,7 +25,7 @@
                 <a 
                     asp-controller="Product" 
                     asp-action="Edit" 
-                    asp-route-category="@(p.Category)"
+                    asp-route-category="@((int)p.Category)"
                     asp-route-productId="@(p.Id)"
                 >
                 編集
@@ -33,7 +33,7 @@
                 <a 
                     asp-controller="Product" 
                     asp-action="Delete" 
-                    asp-route-category="@(p.Category)"
+                    asp-route-category="@((int)p.Category)"
                     asp-route-productId="@(p.Id)">
                 削除
                 </a>

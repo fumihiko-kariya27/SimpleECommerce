@@ -11,10 +11,14 @@ namespace SimpleECommerce.Service.Catalog
 
         Task<(bool, Product?)> TrySelect(CategoryId category, int productId);
 
-        Task RegisterAsync(Product product);
+        Task InsertAsync(Product product);
 
         Task<(bool, ProductImage?)> SelectImageByPrimaryAsync(ProductId id, int sequence);
 
         Task<(bool, Product?)> SelectByPrimayAsync(ProductId productId);
+
+        Task UpDateAsync(Product product);
+
+        Task DeleteByPrimaryAsync(ProductId productId);
     }
 }

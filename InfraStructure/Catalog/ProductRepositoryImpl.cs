@@ -49,7 +49,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
             return ret.ToImmutableList();
         }
 
-        public async Task RegisterAsync(Product product)
+        public async Task InsertAsync(Product product)
         {
             ProductModel row = new();
             row.Id = product.Id.Id;
@@ -71,6 +71,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
                 image.FileName = product.Images[i].FileName;
                 image.ContentType = product.Images[i].ContentType;
                 image.Sequence = i + 1;
+                image.CreatedAt = DateTime.Now;
                 await context.AddAsync(image);
             }
 
@@ -87,7 +88,6 @@ namespace SimpleECommerce.InfraStructure.Catalog
 
             if (model == null) 
             {
-                // 画像がなかった場合の処理は検討中
                 return (false, null);
             }
 
@@ -98,6 +98,21 @@ namespace SimpleECommerce.InfraStructure.Catalog
         {
             ProductModel? ret = await context.Products.Where(p => p.CategoryId == productId.Category && p.Id == productId.Id).SingleOrDefaultAsync();
             return ret != null ? (true, ret.ToDomain()) : (false, null);
+        }
+
+        public async Task UpDateAsync(Product product)
+        {
+            await DeleteByPrimaryAsync(product.Id);
+            await InsertAsync(product);
+        }
+
+        public async Task DeleteByPrimaryAsync(ProductId productId)
+        {
+            ProductModel? ret = await context.Products.Where(p => p.CategoryId == productId.Category && p.Id == productId.Id).SingleOrDefaultAsync();
+            if (ret != null)
+            {
+                context.Products.Remove(ret);
+            }
         }
     }
 }

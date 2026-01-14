@@ -20,7 +20,7 @@ namespace SimpleECommerce.Domain.Catalog
             this.Name = name;
             this.Description = description;
             this.Price = price;
-            this.Images = Array.Empty<ProductImage>();
+            this.Images = new List<ProductImage>();
         }
 
         public override string ToString()

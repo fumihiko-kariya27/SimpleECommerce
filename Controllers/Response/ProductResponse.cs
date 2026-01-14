@@ -23,7 +23,7 @@ namespace SimpleECommerce.Controllers.Response
         [Display(Name = "価格")]
         public int Price { get; set; }
 
-        public IList<int> imageSequence = Array.Empty<int>();
+        public IList<int> imageSequence = new List<int>();
 
         public ProductResponse(Product domainProduct)
         {
