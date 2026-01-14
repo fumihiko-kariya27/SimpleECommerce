@@ -75,7 +75,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
                 await context.AddAsync(image);
             }
 
-            context.SaveChanges();
+            await context.SaveChangesAsync();
         }
 
         public async Task<(bool, ProductImage?)> SelectImageByPrimaryAsync(ProductId id, int sequence)
@@ -102,8 +102,18 @@ namespace SimpleECommerce.InfraStructure.Catalog
 
         public async Task UpDateAsync(Product product)
         {
-            await DeleteByPrimaryAsync(product.Id);
-            await InsertAsync(product);
+            using var tr = await context.Database.BeginTransactionAsync();
+            try
+            {
+                await DeleteByPrimaryAsync(product.Id);
+                await InsertAsync(product);
+
+                await tr.CommitAsync();
+            }
+            catch (Exception)
+            {
+                await tr.RollbackAsync();
+            }
         }
 
         public async Task DeleteByPrimaryAsync(ProductId productId)
@@ -112,6 +122,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
             if (ret != null)
             {
                 context.Products.Remove(ret);
+                await context.SaveChangesAsync();
             }
         }
     }
