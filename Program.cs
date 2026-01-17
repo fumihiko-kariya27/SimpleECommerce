@@ -1,7 +1,10 @@
 using Microsoft.EntityFrameworkCore;
+using SimpleECommerce.Controllers.Filter;
 using SimpleECommerce.InfraStructure;
 using SimpleECommerce.InfraStructure.Catalog;
 using SimpleECommerce.InfraStructure.Image;
+using SimpleECommerce.InfraStructure.Logging;
+using SimpleECommerce.InfraStructure.Logging.Impl;
 using SimpleECommerce.Models.Context;
 using SimpleECommerce.Service.Catalog;
 using SimpleECommerce.Service.Image;
@@ -21,6 +24,12 @@ builder.Services.AddDbContext<ECommerceDbContext>(
 builder.Services.AddScoped<IProductRepository, ProductRepositoryImpl>();
 builder.Services.AddScoped<IProductService, ProductServiceImpl>();
 builder.Services.AddScoped<IImageStorage, ImageStorageImpl>();
+builder.Services.AddScoped(typeof(IAppLogger<>), typeof(ConsoleLogger<>));
+builder.Services.AddScoped<ActionFilter>();
+
+builder.Services.AddControllers(options => {
+    options.Filters.Add<ActionFilter>();
+});
 
 var app = builder.Build();
 
