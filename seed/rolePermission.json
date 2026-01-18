@@ -1,0 +1,60 @@
+[
+  {
+    "RoleId": 1,
+    "PermissionId": 1
+  },
+  {
+    "RoleId": 1,
+    "PermissionId": 2
+  },
+  {
+    "RoleId": 1,
+    "PermissionId": 3
+  },
+  {
+    "RoleId": 1,
+    "PermissionId": 4
+  },
+  {
+    "RoleId": 1,
+    "PermissionId": 5
+  },
+  {
+    "RoleId": 1,
+    "PermissionId": 6
+  },
+  {
+    "RoleId": 1,
+    "PermissionId": 7
+  },
+
+  {
+    "RoleId": 2,
+    "PermissionId": 1
+  },
+  {
+    "RoleId": 2,
+    "PermissionId": 2
+  },
+  {
+    "RoleId": 2,
+    "PermissionId": 3
+  },
+  {
+    "RoleId": 2,
+    "PermissionId": 5
+  },
+  {
+    "RoleId": 2,
+    "PermissionId": 6
+  },
+  {
+    "RoleId": 2,
+    "PermissionId": 7
+  },
+
+  {
+    "RoleId": 3,
+    "PermissionId": 1
+  }
+]

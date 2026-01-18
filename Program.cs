@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.Controllers.Filter;
 using SimpleECommerce.InfraStructure;
@@ -27,8 +28,10 @@ builder.Services.AddScoped<IImageStorage, ImageStorageImpl>();
 builder.Services.AddScoped(typeof(IAppLogger<>), typeof(ConsoleLogger<>));
 builder.Services.AddScoped<ActionFilter>();
 
-builder.Services.AddControllers(options => {
+builder.Services.AddControllersWithViews(options => {
     options.Filters.Add<ActionFilter>();
+    // 更新系リクエストに対するCSRF対策有効化
+    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 });
 
 var app = builder.Build();

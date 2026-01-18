@@ -1,0 +1,17 @@
+[
+  {
+    "Id": 1,
+    "Name": "Admin",
+    "Description": "管理者"
+  },
+  {
+    "Id": 2,
+    "Name": "Operator",
+    "Description": "運用担当者"
+  },
+  {
+    "Id": 3,
+    "Name": "General",
+    "Description": "一般ユーザー"
+  }
+]
