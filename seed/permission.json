@@ -1,0 +1,37 @@
+[
+  {
+    "Id": 1,
+    "Code": "ViewProduct",
+    "Description": "商品を閲覧する権限"
+  },
+  {
+    "Id": 2,
+    "Code": "RegisterNewProdduct",
+    "Description": "商品を新規登録する権限"
+  },
+  {
+    "Id": 3,
+    "Code": "UpdateProduct",
+    "Description": "商品を更新する権限"
+  },
+  {
+    "Id": 4,
+    "Code": "DeleteProduct",
+    "Description": "商品を削除する権限"
+  },
+  {
+    "Id": 5,
+    "Code": "NewOrder",
+    "Description": "新規注文を作成する権限"
+  },
+  {
+    "Id": 6,
+    "Code": "UpdateOrder",
+    "Description": "注文を更新する権限"
+  },
+  {
+    "Id": 7,
+    "Code": "CancelOrder",
+    "Description": "注文をキャンセルする権限"
+  }
+]

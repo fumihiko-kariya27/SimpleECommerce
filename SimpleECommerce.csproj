@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Domain\Authorization\Policy\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 

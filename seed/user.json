@@ -1,0 +1,92 @@
+[
+  {
+    "Id": 1,
+    "Name": "Admin User 1",
+    "Email": "admin1@example.com",
+    "Password": "admin1",
+    "IsActive": true,
+    "CreatedAt": "2024-01-01T00:00:00",
+    "UpdatedAt": "2024-01-01T00:00:00"
+  },
+  {
+    "Id": 2,
+    "Name": "Admin User 2",
+    "Email": "admin2@example.com",
+    "Password": "admin2",
+    "IsActive": true,
+    "CreatedAt": "2024-01-01T00:00:00",
+    "UpdatedAt": "2024-01-01T00:00:00"
+  },
+  {
+    "Id": 3,
+    "Name": "Operator User 1",
+    "Email": "operator1@example.com",
+    "Password": "ope1",
+    "IsActive": true,
+    "CreatedAt": "2024-01-01T00:00:00",
+    "UpdatedAt": "2024-01-01T00:00:00"
+  },
+  {
+    "Id": 4,
+    "Name": "Operator User 2",
+    "Email": "operator2@example.com",
+    "Password": "ope1",
+    "IsActive": true,
+    "CreatedAt": "2024-01-01T00:00:00",
+    "UpdatedAt": "2024-01-01T00:00:00"
+  },
+  {
+    "Id": 5,
+    "Name": "Operator User 3",
+    "Email": "operator3@example.com",
+    "Password": "ope1",
+    "IsActive": true,
+    "CreatedAt": "2024-01-01T00:00:00",
+    "UpdatedAt": "2024-01-01T00:00:00"
+  },
+  {
+    "Id": 6,
+    "Name": "General User 1",
+    "Email": "general1@example.com",
+    "Password": "user1",
+    "IsActive": true,
+    "CreatedAt": "2024-01-01T00:00:00",
+    "UpdatedAt": "2024-01-01T00:00:00"
+  },
+  {
+    "Id": 7,
+    "Name": "General User 2",
+    "Email": "general2@example.com",
+    "Password": "user2",
+    "IsActive": true,
+    "CreatedAt": "2024-01-01T00:00:00",
+    "UpdatedAt": "2024-01-01T00:00:00"
+  },
+  {
+    "Id": 8,
+    "Name": "General User 3",
+    "Email": "general3@example.com",
+    "Password": "user3",
+    "IsActive": true,
+    "CreatedAt": "2024-01-01T00:00:00",
+    "UpdatedAt": "2024-01-01T00:00:00"
+  },
+  {
+    "Id": 9,
+    "Name": "General User 4",
+    "Email": "general4@example.com",
+    "Password": "user4",
+    "IsActive": true,
+    "CreatedAt": "2024-01-01T00:00:00",
+    "UpdatedAt": "2024-01-01T00:00:00"
+  },
+  {
+    "Id": 10,
+    "Name": "General User 5",
+    "Email": "general5@example.com",
+    "Password": "user5",
+    "IsActive": true,
+    "CreatedAt": "2024-01-01T00:00:00",
+    "UpdatedAt": "2024-01-01T00:00:00"
+  }
+]
