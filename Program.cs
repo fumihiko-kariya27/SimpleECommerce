@@ -7,6 +7,7 @@ using SimpleECommerce.InfraStructure.Image;
 using SimpleECommerce.InfraStructure.Logging;
 using SimpleECommerce.InfraStructure.Logging.Impl;
 using SimpleECommerce.Models.Context;
+using SimpleECommerce.Models.User.Authorization;
 using SimpleECommerce.Service.Catalog;
 using SimpleECommerce.Service.Image;
 
@@ -34,6 +35,47 @@ builder.Services.AddControllersWithViews(options => {
     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 });
 
+
+builder.Services.AddAuthentication("AuthCookie").AddCookie(
+    "AuthCookie", options => 
+    {
+        options.LoginPath = "/auth/login";
+        options.LogoutPath = "/auth/logout";
+        options.AccessDeniedPath = "/auth/denied";
+        options.ExpireTimeSpan = TimeSpan.FromHours(3);
+    }
+);
+
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("ViewProduct", policy =>
+    {
+        policy.RequireClaim("Permission", "ViewProduct");
+    })
+    .AddPolicy("RegisterNewProduct", policy =>
+    {
+        policy.RequireClaim("Permission", "RegisterNewProduct");
+    })
+    .AddPolicy("UpdateProduct", policy =>
+    {
+        policy.RequireClaim("Permission", "UpdateProduct");
+    })
+    .AddPolicy("DeleteProduct", policy =>
+    {
+        policy.RequireClaim("Permission", "DeleteProduct");
+    })
+    .AddPolicy("NewOrder", policy =>
+    {
+        policy.RequireClaim("Permission", "NewOrder");
+    })
+    .AddPolicy("UpdateOrder", policy =>
+    {
+        policy.RequireClaim("Permission", "UpdateOrder");
+    })
+    .AddPolicy("CancelOrder", policy =>
+    {
+        policy.RequireClaim("Permission", "CancelOrder");
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -51,15 +93,16 @@ using (IServiceScope scope = app.Services.CreateScope())
     DbInitializer.Seed(db);
 }
 
-    app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Auth}/{action=Login}/{id?}");
 
 app.Run();

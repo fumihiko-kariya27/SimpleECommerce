@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SimpleECommerce.Controllers.Request;
-using SimpleECommerce.Controllers.Response;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SimpleECommerce.Domain.Catalog;
 using SimpleECommerce.Domain.Catalog.Categories;
 using SimpleECommerce.Domain.Exception;
@@ -18,6 +17,7 @@ namespace SimpleECommerce.Controllers.Catalog
             this.service = service;
         }
 
+        [Authorize(Policy = "ViewProduct")]
         public async Task<IActionResult> Index()
         {
             IReadOnlyList<Product> ret = await service.ListAsync();
@@ -25,6 +25,7 @@ namespace SimpleECommerce.Controllers.Catalog
             return View(response);
         }
 
+        [Authorize(Policy = "ViewProduct")]
         [HttpGet("Product/Edit/{category}/{productId}/{sequence}")]
         public async Task<IActionResult> Images(int categoryId, int productId, int sequence)
         {
@@ -43,6 +44,7 @@ namespace SimpleECommerce.Controllers.Catalog
             return View(new ProductRequest());
         }
 
+        [Authorize(Policy = "RegisterNewProduct")]
         [HttpPost]
         public async Task<IActionResult> Create([Bind("Category,Id,Name,Desc,Price,UploadFiles")] ProductRequest request)
         {
@@ -90,6 +92,7 @@ namespace SimpleECommerce.Controllers.Catalog
             }
         }
 
+        [Authorize(Policy = "UpdateProduct")]
         [HttpPost("Product/Edit")]
         public async Task<IActionResult> Edit([Bind("Category,Id,Name,Desc,Price,UploadFiles")] ProductRequest request)
         {
@@ -109,6 +112,7 @@ namespace SimpleECommerce.Controllers.Catalog
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Policy = "DeleteProduct")]
         [HttpGet("Product/Delete/{category}/{productId}")]
         public async Task<IActionResult> Delete(int category, int productId)
         {
@@ -121,6 +125,7 @@ namespace SimpleECommerce.Controllers.Catalog
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize(Policy = "ViewProduct")]
         public async Task<IActionResult> IsUniqueProduct([Bind("Category,Id")] ProductRequest request)
         {
             Product product = request.ToDomain();
@@ -131,6 +136,7 @@ namespace SimpleECommerce.Controllers.Catalog
             return Json(true);
         }
 
+        [Authorize(Policy = "ViewProduct")]
         public async Task<ProductCsvResponse> Csv()
         {
             IReadOnlyList<Product> ret = await service.ListAsync();

@@ -3,7 +3,7 @@ using SimpleECommerce.Domain.Catalog.Categories;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-namespace SimpleECommerce.Controllers.Response
+namespace SimpleECommerce.Controllers.Catalog
 {
     public class ProductResponse
     {

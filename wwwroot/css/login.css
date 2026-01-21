@@ -1,0 +1,44 @@
+﻿.login-container {
+    max-width: 380px;
+    margin: 80px auto;
+    padding: 30px 25px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+.login-container h1 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 26px;
+    font-weight: 600;
+    color: #333;
+}
+
+.login-container label {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.login-container .form-control {
+    height: 42px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: border-color .2s;
+}
+
+.login-container .form-control:focus {
+    border-color: #007bff;
+    box-shadow: none;
+}
+
+.login-container .btn-primary {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 6px;
+}
+
+.text-danger {
+    font-size: 14px;
+}

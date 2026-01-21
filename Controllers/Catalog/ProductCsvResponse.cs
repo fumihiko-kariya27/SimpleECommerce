@@ -3,7 +3,7 @@ using SimpleECommerce.Domain.Catalog;
 using System.Reflection;
 using System.Text;
 
-namespace SimpleECommerce.Controllers.Response
+namespace SimpleECommerce.Controllers.Catalog
 {
     public class ProductCsvResponse : ActionResult
     {

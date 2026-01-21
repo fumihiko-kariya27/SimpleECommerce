@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
 
-namespace SimpleECommerce.Controllers.Request
+namespace SimpleECommerce.Controllers.Catalog
 {
     public class ProductRequest
     {
