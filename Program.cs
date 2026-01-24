@@ -11,6 +11,7 @@ using SimpleECommerce.Models.Context;
 using SimpleECommerce.Models.User.Authorization;
 using SimpleECommerce.Service.Catalog;
 using SimpleECommerce.Service.Image;
+using SimpleECommerce.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,8 +28,8 @@ builder.Services.AddDbContext<ECommerceDbContext>(
 builder.Services.AddScoped<IProductRepository, ProductRepositoryImpl>();
 builder.Services.AddScoped<IProductService, ProductServiceImpl>();
 builder.Services.AddScoped<IImageStorage, ImageStorageImpl>();
-builder.Services.AddScoped(typeof(IAppLogger<>), typeof(ConsoleLogger<>));
-builder.Services.AddScoped<ActionFilter>();
+builder.Services.AddSingleton(typeof(IAppLogger<>), typeof(ConsoleLogger<>));
+builder.Services.AddSingleton<ActionFilter>();
 
 builder.Services.AddControllersWithViews(options => {
     options.Filters.Add<ActionFilter>();
@@ -58,6 +59,8 @@ using (IServiceScope scope = app.Services.CreateScope())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
+
 
 app.UseRouting();
 
