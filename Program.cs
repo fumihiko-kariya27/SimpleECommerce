@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.Controllers.Filter;
+using SimpleECommerce.Controllers.Auth.Ext;
 using SimpleECommerce.InfraStructure;
 using SimpleECommerce.InfraStructure.Catalog;
 using SimpleECommerce.InfraStructure.Image;
@@ -35,46 +36,8 @@ builder.Services.AddControllersWithViews(options => {
     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 });
 
-
-builder.Services.AddAuthentication("AuthCookie").AddCookie(
-    "AuthCookie", options => 
-    {
-        options.LoginPath = "/auth/login";
-        options.LogoutPath = "/auth/logout";
-        options.AccessDeniedPath = "/auth/denied";
-        options.ExpireTimeSpan = TimeSpan.FromHours(3);
-    }
-);
-
-builder.Services.AddAuthorizationBuilder()
-    .AddPolicy("ViewProduct", policy =>
-    {
-        policy.RequireClaim("Permission", "ViewProduct");
-    })
-    .AddPolicy("RegisterNewProduct", policy =>
-    {
-        policy.RequireClaim("Permission", "RegisterNewProduct");
-    })
-    .AddPolicy("UpdateProduct", policy =>
-    {
-        policy.RequireClaim("Permission", "UpdateProduct");
-    })
-    .AddPolicy("DeleteProduct", policy =>
-    {
-        policy.RequireClaim("Permission", "DeleteProduct");
-    })
-    .AddPolicy("NewOrder", policy =>
-    {
-        policy.RequireClaim("Permission", "NewOrder");
-    })
-    .AddPolicy("UpdateOrder", policy =>
-    {
-        policy.RequireClaim("Permission", "UpdateOrder");
-    })
-    .AddPolicy("CancelOrder", policy =>
-    {
-        policy.RequireClaim("Permission", "CancelOrder");
-    });
+builder.Services.AddCookeiAythentication();
+builder.Services.AddPermissionPolicies();
 
 var app = builder.Build();
 
