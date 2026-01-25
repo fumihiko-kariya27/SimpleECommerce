@@ -60,7 +60,7 @@ using (IServiceScope scope = app.Services.CreateScope())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-
+app.UseGlobalExceptionHandlerMiddleware();
 
 app.UseRouting();
 

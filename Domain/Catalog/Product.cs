@@ -2,7 +2,7 @@
 
 namespace SimpleECommerce.Domain.Catalog
 {
-    public class Product
+    public class Product : IEquatable<Product>
     {
         public ProductId Id { get; init; }
         public ProductName Name { get; init; }
@@ -26,6 +26,31 @@ namespace SimpleECommerce.Domain.Catalog
         public override string ToString()
         {
             return $"商品コード:{Id.Code} 商品名:{Name.Name}";
+        }
+
+        public bool Equals(Product? other)
+        {
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other == null || this.GetType() != other.GetType())
+            {
+                return false;
+            }
+
+            return this.Id.Equals(other.Id);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return this.Equals(obj as Product);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Id.GetHashCode();
         }
     }
 }
