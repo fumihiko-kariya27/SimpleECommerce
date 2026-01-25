@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SimpleECommerce.Domain.User;
 using SimpleECommerce.Models.Context;
 using SimpleECommerce.Models.User;
 using System.Security.Claims;
@@ -74,6 +75,8 @@ namespace SimpleECommerce.Controllers.Auth
             ClaimsIdentity identity = new ClaimsIdentity(claims, "AuthCookie");
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
+            CreateDomainUser(principal);
+
             await HttpContext.SignInAsync("AuthCookie", principal);
 
             return RedirectToAction("Index", "Product");
@@ -83,6 +86,29 @@ namespace SimpleECommerce.Controllers.Auth
         {
             await HttpContext.SignOutAsync("AuthCookie");
             return RedirectToAction(nameof(Login));
+        }
+
+        private void CreateDomainUser(ClaimsPrincipal principal)
+        {
+            string? role = principal.FindFirst(ClaimTypes.Role)?.Value;
+            switch (role) 
+            {
+                case "Admin":
+                    break;
+
+                case "Operator":
+                    break;
+
+                case "General":
+                    string name = principal.FindFirst(ClaimTypes.Name)?.Value!;
+                    string email = principal.FindFirst(ClaimTypes.Email)?.Value!;
+                    Customer customer = DomainUserFactory.CreateCustomer(name, email);
+                    HttpContext.Items["customer"] = customer;
+                    break;
+
+                default:
+                    throw new Exception($"Unknow role [role = {role}]");
+            }
         }
     }
 }

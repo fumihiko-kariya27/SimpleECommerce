@@ -1,6 +1,6 @@
-﻿using SimpleECommerce.Domain.Catalog;
+﻿using SimpleECommerce.Domain.Exception;
 
-namespace SimpleECommerce.Domain.Exception
+namespace SimpleECommerce.Domain.Catalog
 {
     /// <summary>
     /// 登録商品が既に登録済みである場合に投げられる

@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleECommerce.Domain.Catalog;
 using SimpleECommerce.Domain.Catalog.Categories;
-using SimpleECommerce.Domain.Exception;
 using SimpleECommerce.Service.Catalog;
 using SimpleECommerce.Service.Image;
 

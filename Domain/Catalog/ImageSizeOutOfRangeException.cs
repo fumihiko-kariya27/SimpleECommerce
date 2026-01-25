@@ -1,4 +1,6 @@
-﻿namespace SimpleECommerce.Domain.Exception
+﻿using SimpleECommerce.Domain.Exception;
+
+namespace SimpleECommerce.Domain.Catalog
 {
     public class ImageSizeOutOfRangeException : DomainException
     {

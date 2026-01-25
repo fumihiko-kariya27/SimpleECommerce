@@ -1,6 +1,6 @@
-﻿using SimpleECommerce.Domain.Catalog;
+﻿using SimpleECommerce.Domain.Exception;
 
-namespace SimpleECommerce.Domain.Exception
+namespace SimpleECommerce.Domain.Catalog
 {
     public class ProductNotExistException : DomainException
     {
