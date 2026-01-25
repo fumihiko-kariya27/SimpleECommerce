@@ -1,4 +1,6 @@
-﻿namespace SimpleECommerce.Controllers.Auth.Ext
+﻿using SimpleECommerce.Domain.User;
+
+namespace SimpleECommerce.Controllers.Auth.Ext
 {
     public static class AuthExtension
     {
@@ -50,6 +52,16 @@
             );
 
             return services;
+        }
+
+        public static IDomainUser CetCurrentCustomer(this HttpContext context)
+        {
+            if (context.Items.TryGetValue("customer", out var value) && value is Customer customer)
+            {
+                return customer;
+            }
+
+            throw new InvalidOperationException("Customer is not set HttpContext Items");
         }
     }
 }

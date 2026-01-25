@@ -1,5 +1,4 @@
-﻿using SimpleECommerce.Domain.Authorization.Permission;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace SimpleECommerce.Models.User.Authorization
 {
