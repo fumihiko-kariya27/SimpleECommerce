@@ -3,7 +3,7 @@
 namespace SimpleECommerce.Domain.Catalog
 {
     // 商品IDを定義する
-    public sealed class ProductId
+    public sealed class ProductId : IEquatable<ProductId>
     {
         public CategoryId Category { get; init; }
         public int Id { get; init; }
@@ -30,6 +30,31 @@ namespace SimpleECommerce.Domain.Catalog
         public override string ToString()
         {
             return this.Code;
+        }
+
+        public bool Equals(ProductId? other)
+        {
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other == null || this.GetType() != other.GetType())
+            {
+                return false;
+            }
+
+            return this.Category == other.Category && this.Id == other.Id;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return this.Equals(obj as ProductId);
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Category.GetHashCode() ^ this.Id.GetHashCode();
         }
     }
 }
