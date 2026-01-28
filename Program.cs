@@ -1,17 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SimpleECommerce.Controllers.Filter;
 using SimpleECommerce.Controllers.Auth.Ext;
+using SimpleECommerce.Controllers.Filter;
 using SimpleECommerce.InfraStructure;
 using SimpleECommerce.InfraStructure.Catalog;
 using SimpleECommerce.InfraStructure.Image;
 using SimpleECommerce.InfraStructure.Logging;
 using SimpleECommerce.InfraStructure.Logging.Impl;
+using SimpleECommerce.InfraStructure.Purchase;
+using SimpleECommerce.Middleware;
 using SimpleECommerce.Models.Context;
 using SimpleECommerce.Models.User.Authorization;
 using SimpleECommerce.Service.Catalog;
 using SimpleECommerce.Service.Image;
-using SimpleECommerce.Middleware;
+using SimpleECommerce.Service.Purchase;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +29,8 @@ builder.Services.AddDbContext<ECommerceDbContext>(
 // DIëŒèÃÇ∆Ç∑ÇÈÉNÉâÉXÇÃìoò^
 builder.Services.AddScoped<IProductRepository, ProductRepositoryImpl>();
 builder.Services.AddScoped<IProductService, ProductServiceImpl>();
+builder.Services.AddScoped<IPurchasePointRepository, PurchasePointRepositoryImpl>();
+builder.Services.AddScoped<IPurchasePointService, PurchasePointServiceImpl>();
 builder.Services.AddScoped<IImageStorage, ImageStorageImpl>();
 builder.Services.AddSingleton(typeof(IAppLogger<>), typeof(ConsoleLogger<>));
 builder.Services.AddSingleton<ActionFilter>();

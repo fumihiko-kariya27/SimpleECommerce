@@ -2,7 +2,7 @@
 
 namespace SimpleECommerce.Domain.User
 {
-    internal class CustomerId : IEquatable<CustomerId>
+    public class CustomerId : IEquatable<CustomerId>
     {
         // IDはメールアドレスを使用するものとする
         private static Regex rules = new Regex(@"^[a-zA-Z0-9._]+@[a-zA-Z0-9.]+.[a-zA-Z]{2,}$");

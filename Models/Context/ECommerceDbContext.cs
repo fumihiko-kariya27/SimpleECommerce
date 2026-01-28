@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.Models.Catalog;
+using SimpleECommerce.Models.Purchase;
 using SimpleECommerce.Models.User;
 using SimpleECommerce.Models.User.Authorization;
 
@@ -27,6 +28,8 @@ namespace SimpleECommerce.Models.Context
         public DbSet<PermissionModel> Permissions { get; set; }
 
         public DbSet<RolePermissionModel> RolePermissions { get; set; }
+
+        public DbSet<PurchasePointHistoryModel> PurchasePointHistories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         { 
