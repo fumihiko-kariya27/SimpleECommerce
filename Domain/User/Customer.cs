@@ -1,4 +1,4 @@
-﻿using SimpleECommerce.Domain.Purchase;
+﻿using SimpleECommerce.Domain.Purchase.Choise;
 
 namespace SimpleECommerce.Domain.User
 {

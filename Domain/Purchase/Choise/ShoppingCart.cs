@@ -1,7 +1,7 @@
 ﻿using AspNetCoreGeneratedDocument;
 using SimpleECommerce.Domain.Catalog;
 
-namespace SimpleECommerce.Domain.Purchase
+namespace SimpleECommerce.Domain.Purchase.Choise
 {
     internal class ShoppingCart
     {

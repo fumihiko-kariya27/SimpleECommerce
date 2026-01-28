@@ -4,7 +4,7 @@ using SimpleECommerce.Service.Image;
 
 namespace SimpleECommerce.InfraStructure.Image
 {
-    public class ImageStorageImpl : IImageStorage
+    internal class ImageStorageImpl : IImageStorage
     {
         // 画像ファイルを保存するルートディレクトリ
         private readonly string _imageRoot;
