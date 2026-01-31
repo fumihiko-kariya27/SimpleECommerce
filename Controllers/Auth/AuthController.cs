@@ -5,17 +5,20 @@ using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.Domain.User;
 using SimpleECommerce.Models.Context;
 using SimpleECommerce.Models.User;
+using SimpleECommerce.Service.Purchase;
 using System.Security.Claims;
 
 namespace SimpleECommerce.Controllers.Auth
 {
     public class AuthController : Controller
     {
-        private ECommerceDbContext context;
+        private readonly ECommerceDbContext _context;
+        private readonly IPurchasePointService _purchaseService;
 
-        public AuthController(ECommerceDbContext context)
+        public AuthController(ECommerceDbContext context, IPurchasePointService purchaseService)
         {
-            this.context = context;
+            _context = context;
+            _purchaseService = purchaseService;
         }
 
         public IActionResult Login()
@@ -32,7 +35,7 @@ namespace SimpleECommerce.Controllers.Auth
                 return View(request);
             }
 
-            UserModel? user = await context.Users
+            UserModel? user = await _context.Users
                 .Include(u => u.Roles)
                 .ThenInclude(ur => ur.Role)
                 .ThenInclude(ur => ur.Permissions)
@@ -61,9 +64,9 @@ namespace SimpleECommerce.Controllers.Auth
                 new Claim(ClaimTypes.Email, user.Email)
             };
 
-            foreach (string role in user.Roles.Select(r => r.Role.Name))
+            foreach (int role in user.Roles.Select(r => r.Role.Id))
             {
-                claims.Add(new Claim(ClaimTypes.Role, role));
+                claims.Add(new Claim(ClaimTypes.Role, role.ToString()));
             }
 
             IEnumerable<string> permissions = user.Roles.SelectMany(ur => ur.Role.Permissions).Select(rp => rp.Permission.Code).Distinct();
@@ -76,6 +79,9 @@ namespace SimpleECommerce.Controllers.Auth
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
             CreateDomainUser(principal);
+
+            CustomerId customerId = new CustomerId(user.Email);
+            await _purchaseService.GrantDailyPointAsync(customerId);
 
             await HttpContext.SignInAsync("AuthCookie", principal);
 
@@ -91,24 +97,16 @@ namespace SimpleECommerce.Controllers.Auth
         private void CreateDomainUser(ClaimsPrincipal principal)
         {
             string? role = principal.FindFirst(ClaimTypes.Role)?.Value;
-            switch (role) 
+            DomainUserRole userRole = DomainUserRole.Unknown;
+            if (role != null && Enum.IsDefined(typeof(DomainUserRole), Int32.Parse(role))) 
             {
-                case "Admin":
-                    break;
-
-                case "Operator":
-                    break;
-
-                case "General":
-                    string name = principal.FindFirst(ClaimTypes.Name)?.Value!;
-                    string email = principal.FindFirst(ClaimTypes.Email)?.Value!;
-                    Customer customer = DomainUserFactory.CreateCustomer(name, email);
-                    HttpContext.Items["customer"] = customer;
-                    break;
-
-                default:
-                    throw new Exception($"Unknow role [role = {role}]");
+                userRole = (DomainUserRole)Int32.Parse(role);
             }
+
+            string name = principal.FindFirst(ClaimTypes.Name)?.Value!;
+            string email = principal.FindFirst(ClaimTypes.Email)?.Value!;
+            IDomainUser user = DomainUserFactory.CreateUserByRole(userRole, name, email);
+            HttpContext.Items["user"] = user;
         }
     }
 }

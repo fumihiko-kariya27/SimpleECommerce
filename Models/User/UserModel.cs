@@ -14,6 +14,8 @@
 
         public ICollection<UserRoleModel> Roles { get; } = new List<UserRoleModel>();
 
+        public DateTime? LastLogin { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         public DateTime UpdatedAt { get; set; }

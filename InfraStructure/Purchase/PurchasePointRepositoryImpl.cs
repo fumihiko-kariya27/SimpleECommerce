@@ -18,9 +18,7 @@ namespace SimpleECommerce.InfraStructure.Purchase
 
         public async Task InsertHistoryAsync(PurchasePointHistory history)
         {
-            int nextId = _context.PurchasePointHistories.Max(p => p.Id) + 1;
             PurchasePointHistoryModel model = new();
-            model.Id = nextId;
             model.UserId = history.CustomerId.Value;
             model.Point = history.Point.Value;
             model.HistoryType = history.HistoryType;

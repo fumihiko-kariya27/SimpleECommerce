@@ -12,11 +12,16 @@ namespace SimpleECommerce.Domain.User
         { 
             ArgumentException.ThrowIfNullOrWhiteSpace(name);
             ArgumentException.ThrowIfNullOrWhiteSpace(id);
+            
 
             this._name = name;
             this._Id = new CustomerId(id);
         }
 
+        public DomainUserRole Type => DomainUserRole.Customer;
+
         public string Id => _Id.Value;
+
+        public string Name => _name;
     }
 }

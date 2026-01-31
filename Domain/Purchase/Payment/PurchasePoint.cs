@@ -3,7 +3,7 @@
     public class PurchasePoint
     {
         // ユーザーが日次で最初にログインした時に付与されるポイント
-        public static readonly PurchasePoint LoginPointAtDay = new PurchasePoint(1000);
+        public static readonly PurchasePoint LoginBonusPerDay = new PurchasePoint(1000);
 
         public int Value { get; }
 
