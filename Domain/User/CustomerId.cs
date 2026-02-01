@@ -1,21 +1,21 @@
-﻿using System.Text.RegularExpressions;
+﻿using Microsoft.EntityFrameworkCore.Diagnostics;
+using System.Text.RegularExpressions;
 
 namespace SimpleECommerce.Domain.User
 {
     public class CustomerId : IEquatable<CustomerId>
     {
-        // IDはメールアドレスを使用するものとする
-        private static Regex rules = new Regex(@"^[a-zA-Z0-9._]+@[a-zA-Z0-9.]+.[a-zA-Z]{2,}$");
+        private static readonly int Min = 1;
 
-        private readonly string _id;
+        private readonly int _id;
 
-        public string Value => _id;
+        public int Value => _id;
 
-        internal CustomerId(string id)
+        internal CustomerId(int id)
         {
-            if (!rules.IsMatch(id))
+            if (id < Min)
             {
-                throw new CustomerIdIllegalFormatException($"IDはメールアドレス形式で設定してください [Specified ID = {id}]");
+                throw new ArgumentOutOfRangeException($"Idは{Min}以上の値でなければいけません");
             }
 
             _id = id;
@@ -33,7 +33,7 @@ namespace SimpleECommerce.Domain.User
                 return false;
             }
 
-            return this._id.Equals(other._id);
+            return this._id == other._id;
         }
 
         public override bool Equals(object? obj)

@@ -4,6 +4,10 @@ namespace SimpleECommerce.Service.User
 {
     public interface IUserService
     {
-        IDomainUser? FindAsync(CustomerId id);
+        Task<DomainUser?> FindByEmailAsync(string email);
+
+        Task<DomainUser?> FindByIdAsync(CustomerId id);
+
+        Task<string> GetHashedPasswordAsync(string email);
     }
 }

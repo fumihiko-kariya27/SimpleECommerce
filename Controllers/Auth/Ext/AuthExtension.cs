@@ -54,14 +54,14 @@ namespace SimpleECommerce.Controllers.Auth.Ext
             return services;
         }
 
-        public static IDomainUser CetCurrentCustomer(this HttpContext context)
+        public static DomainUser CetCurrentCustomer(this HttpContext context)
         {
-            if (context.Items.TryGetValue("customer", out var value) && value is Customer customer)
+            if (context.Items.TryGetValue("user", out var value) && value is DomainUser user)
             {
-                return customer;
+                return user;
             }
 
-            throw new InvalidOperationException("Customer is not set HttpContext Items");
+            throw new InvalidOperationException("user is not set HttpContext Items");
         }
     }
 }

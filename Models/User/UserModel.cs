@@ -1,4 +1,6 @@
-﻿namespace SimpleECommerce.Models.User
+﻿using SimpleECommerce.Models.Purchase;
+
+namespace SimpleECommerce.Models.User
 {
     public class UserModel
     {
@@ -12,7 +14,9 @@
 
         public bool IsActive { get; set; }
 
-        public ICollection<UserRoleModel> Roles { get; } = new List<UserRoleModel>();
+        public ICollection<UserRoleModel> Roles { get; } = [];
+
+        public ICollection<PurchasePointHistoryModel> PurchaseHistories { get; } = [];
 
         public DateTime? LastLogin { get; set; }
 
