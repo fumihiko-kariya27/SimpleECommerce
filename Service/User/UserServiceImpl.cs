@@ -1,4 +1,5 @@
-﻿using SimpleECommerce.Domain.User;
+﻿using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using SimpleECommerce.Domain.User;
 
 namespace SimpleECommerce.Service.User
 {
@@ -11,9 +12,23 @@ namespace SimpleECommerce.Service.User
             _repository = repository;
         }
 
-        public IDomainUser? FindAsync(CustomerId id)
+        public async Task<DomainUser?> FindByEmailAsync(string email)
         {
-            return _repository.SelectByIdAsync(id);
+            IReadOnlyCollection<DomainUser> users = await _repository.SelectAsync(user => user.Email.Equals(email));
+            // メールアドレスが合致するユーザーは1名しかいないはずなので先頭データを返却する
+            return users.Count() > 0 ? users.First() : null;
+        }
+
+        public async Task<DomainUser?> FindByIdAsync(CustomerId id)
+        {
+            IReadOnlyCollection<DomainUser> users = await _repository.SelectAsync(user => user.Id == id.Value);
+            // IDが合致するユーザーは１名しかいないはずなので先頭データを返却する
+            return users.Count() > 0 ? users.First() : null;
+        }
+
+        public async Task<string> GetHashedPasswordAsync(string email)
+        {
+            return await _repository.SelectHashedPasswordAsync(email);
         }
     }
 }

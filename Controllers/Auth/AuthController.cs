@@ -6,18 +6,21 @@ using SimpleECommerce.Domain.User;
 using SimpleECommerce.Models.Context;
 using SimpleECommerce.Models.User;
 using SimpleECommerce.Service.Purchase;
+using SimpleECommerce.Service.User;
+using System.Diagnostics;
 using System.Security.Claims;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SimpleECommerce.Controllers.Auth
 {
     public class AuthController : Controller
     {
-        private readonly ECommerceDbContext _context;
+        private readonly IUserService _userService;
         private readonly IPurchasePointService _purchaseService;
 
-        public AuthController(ECommerceDbContext context, IPurchasePointService purchaseService)
+        public AuthController(IUserService userService, IPurchasePointService purchaseService)
         {
-            _context = context;
+            _userService = userService;
             _purchaseService = purchaseService;
         }
 
@@ -35,12 +38,8 @@ namespace SimpleECommerce.Controllers.Auth
                 return View(request);
             }
 
-            UserModel? user = await _context.Users
-                .Include(u => u.Roles)
-                .ThenInclude(ur => ur.Role)
-                .ThenInclude(ur => ur.Permissions)
-                .ThenInclude(rp => rp.Permission)
-                .SingleOrDefaultAsync(u => u.Email == request.Email);
+            DomainUser? user = await _userService.FindByEmailAsync(request.Email);
+            string password = await _userService.GetHashedPasswordAsync(request.Email);
 
             if (user == null)
             {
@@ -48,8 +47,8 @@ namespace SimpleECommerce.Controllers.Auth
                 return View();
             }
 
-            PasswordHasher<UserModel> hasher = new PasswordHasher<UserModel>();
-            PasswordVerificationResult result = hasher.VerifyHashedPassword(user, user.Password, request.Password);
+            PasswordHasher<DomainUser> hasher = new PasswordHasher<DomainUser>();
+            PasswordVerificationResult result = hasher.VerifyHashedPassword(user, password, request.Password);
 
             if (result == PasswordVerificationResult.Failed)
             {
@@ -60,16 +59,16 @@ namespace SimpleECommerce.Controllers.Auth
             List<Claim> claims = new List<Claim>
             {
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Name, user.Profile.Name),
+                new Claim(ClaimTypes.Email, user.Profile.Email)
             };
 
-            foreach (int role in user.Roles.Select(r => r.Role.Id))
+            foreach (int role in user.Role.Roles.Select(r => r.Id))
             {
                 claims.Add(new Claim(ClaimTypes.Role, role.ToString()));
             }
 
-            IEnumerable<string> permissions = user.Roles.SelectMany(ur => ur.Role.Permissions).Select(rp => rp.Permission.Code).Distinct();
+            IEnumerable<string> permissions = user.Role.Roles.SelectMany(ur => ur.Permissions).Select(rp => rp.Behavior).Distinct();
             foreach (string permission in permissions)
             {
                 claims.Add(new Claim("Permission", permission));
@@ -78,9 +77,9 @@ namespace SimpleECommerce.Controllers.Auth
             ClaimsIdentity identity = new ClaimsIdentity(claims, "AuthCookie");
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
 
-            CreateDomainUser(principal);
+            HttpContext.Items["user"] = user;
 
-            CustomerId customerId = new CustomerId(user.Email);
+            CustomerId customerId = new CustomerId(user.Id);
             await _purchaseService.GrantDailyPointAsync(customerId);
 
             await HttpContext.SignInAsync("AuthCookie", principal);
@@ -92,21 +91,6 @@ namespace SimpleECommerce.Controllers.Auth
         {
             await HttpContext.SignOutAsync("AuthCookie");
             return RedirectToAction(nameof(Login));
-        }
-
-        private void CreateDomainUser(ClaimsPrincipal principal)
-        {
-            string? role = principal.FindFirst(ClaimTypes.Role)?.Value;
-            DomainUserRole userRole = DomainUserRole.Unknown;
-            if (role != null && Enum.IsDefined(typeof(DomainUserRole), Int32.Parse(role))) 
-            {
-                userRole = (DomainUserRole)Int32.Parse(role);
-            }
-
-            string name = principal.FindFirst(ClaimTypes.Name)?.Value!;
-            string email = principal.FindFirst(ClaimTypes.Email)?.Value!;
-            IDomainUser user = DomainUserFactory.CreateUserByRole(userRole, name, email);
-            HttpContext.Items["user"] = user;
         }
     }
 }

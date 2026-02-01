@@ -1,8 +1,13 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Core;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
+using SimpleECommerce.Domain.Auth;
 using SimpleECommerce.Domain.User;
 using SimpleECommerce.Models.Context;
 using SimpleECommerce.Models.User;
+using SimpleECommerce.Models.User.Authorization;
 using SimpleECommerce.Service.User;
+using System.Linq.Expressions;
 
 namespace SimpleECommerce.InfraStructure.User
 {
@@ -15,27 +20,49 @@ namespace SimpleECommerce.InfraStructure.User
             _context = context;
         }
 
-        public IDomainUser? SelectByIdAsync(CustomerId id)
+        public async Task<IReadOnlyList<DomainUser>> SelectAsync(Expression<Func<UserModel, bool>>? predicate = null)
         {
-            UserModel? user = _context.Users
-                .Include(u => u.Roles)
-                .Where(u => u.Email.Equals(id.Value)).FirstOrDefault();
-            if (user == null) 
+            IQueryable<UserModel> query = _context.Users.AsQueryable();
+
+            if (predicate != null)
             {
-                return null;
+                query = query.Where(predicate);
             }
 
-            string? role = user.Roles.FirstOrDefault()?.RoleId.ToString();
-            DomainUserRole userRole = DomainUserRole.Unknown;
-            if (role != null && Enum.IsDefined(typeof(DomainUserRole), Int32.Parse(role)))
+            query.Include(u => u.Roles)
+                .ThenInclude(ur => ur.Role)
+                .ThenInclude(ur => ur.Permissions)
+                .ThenInclude(rp => rp.Permission);
+
+            List<DomainUser> users = [];
+            foreach (var user in await query.ToListAsync()) 
             {
-                userRole = (DomainUserRole)Int32.Parse(role);
+                IList<Role> roles = [];
+                foreach (var rl in user.Roles.Select(r => r.Role))
+                {
+                    List<Permission> permissions = [];
+                    foreach (var prm in rl.Permissions.Select(p => p.Permission))
+                    {
+                        Permission permission = new Permission(prm.Id, prm.Code);
+                        permissions.Add(permission);
+                    }
+                    Role role = new Role(rl.Id, permissions);
+                    roles.Add(role);
+                }
+
+                DomainUserProfile profile = new DomainUserProfile(user.Name, user.Email);
+                DomainUserActivity activity = new DomainUserActivity(user.LastLogin ?? DateTime.Now);
+                DomainUserRole userRole = new DomainUserRole(roles);
+                users.Add(new DomainUser(user.Id, profile, activity, userRole));
             }
 
-            string name = user.Name;
-            string email = user.Email;
+            return users;
+        }
 
-            return DomainUserFactory.CreateUserByRole(userRole, name, email);
+        public async Task<string> SelectHashedPasswordAsync(string email)
+        {
+            UserModel? user = await _context.Users.Where(u => u.Email.Equals(email)).FirstOrDefaultAsync();
+            return user?.Password ?? "";
         }
     }
 }

@@ -19,7 +19,7 @@ namespace SimpleECommerce.InfraStructure.Purchase
         public async Task InsertHistoryAsync(PurchasePointHistory history)
         {
             PurchasePointHistoryModel model = new();
-            model.UserId = history.CustomerId.Value;
+            model.CustomerId = history.CustomerId.Value;
             model.Point = history.Point.Value;
             model.HistoryType = history.HistoryType;
             model.OccurredAt = history.OccurredAt;
@@ -31,12 +31,12 @@ namespace SimpleECommerce.InfraStructure.Purchase
         public async Task<IReadOnlyList<PurchasePointHistory>> SelectHistoryByUserIdAsync(CustomerId customerId)
         {
             List<PurchasePointHistoryModel> histories = await _context.PurchasePointHistories
-                .Where(p => p.UserId.Equals(customerId.Value)).ToListAsync();
+                .Where(p => p.CustomerId == customerId.Value).ToListAsync();
 
             List<PurchasePointHistory> ret = [];
             foreach (PurchasePointHistoryModel history in histories)
             {
-                CustomerId cId = new CustomerId(history.UserId);
+                CustomerId cId = new CustomerId(history.CustomerId);
                 PurchasePoint point = new PurchasePoint(history.Point);
                 PurchasePointHistoryType type = 0;
                 if (Enum.IsDefined(typeof(PurchasePointHistoryType), history.HistoryType))

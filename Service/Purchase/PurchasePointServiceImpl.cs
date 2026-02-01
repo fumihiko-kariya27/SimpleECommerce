@@ -35,14 +35,13 @@ namespace SimpleECommerce.Service.Purchase
 
         public async Task GrantDailyPointAsync(CustomerId customerId)
         {
-            IDomainUser? user = _userService.FindAsync(customerId);
+            DomainUser? user = await _userService.FindByIdAsync(customerId);
             if (user == null)
             {
                 return;
             }
 
             // 本来は日次単位で最初にログインした時に付与であるが、いったん実装保留
-
             PurchasePoint bonus = PurchasePoint.LoginBonusPerDay;
             PurchasePointHistory history = PurchasePointHistory.Earn(customerId, bonus);
             await _repository.InsertHistoryAsync(history);

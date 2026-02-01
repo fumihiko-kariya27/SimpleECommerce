@@ -10,9 +10,9 @@ namespace SimpleECommerce.Models.Purchase
     {
         public int Id { get; set; }
 
-        [Column("CustomerId")]
-        public string UserId { get; set; } = string.Empty;
+        public int CustomerId { get; set; }
 
+        [Column("Customer")]
         public UserModel Customer { get; set; } = null!;
 
         public int Point { get; set; }

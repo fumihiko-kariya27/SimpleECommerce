@@ -1,17 +1,14 @@
-﻿namespace SimpleECommerce.Domain.User
+﻿using SimpleECommerce.Domain.Auth;
+
+namespace SimpleECommerce.Domain.User
 {
-    public enum DomainUserRole
+    public class DomainUserRole
     {
-        // 未設定
-        Unknown = 0,
+        public IEnumerable<Role> Roles { get; } = [];
 
-        // 管理者
-        Admin = 1,
-
-        // 運用担当者
-        Operator = 2,
-
-        // 利用者
-        Customer = 3
+        public DomainUserRole(IEnumerable<Role> roles) 
+        {
+            Roles = roles;
+        }
     }
 }
