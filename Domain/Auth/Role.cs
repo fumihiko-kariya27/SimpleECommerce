@@ -10,6 +10,7 @@
         {
             ArgumentNullException.ThrowIfNull(permissions);
 
+            Id = id;
             Permissions = permissions;
         }
     }
