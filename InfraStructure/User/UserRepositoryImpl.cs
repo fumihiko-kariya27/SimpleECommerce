@@ -29,10 +29,10 @@ namespace SimpleECommerce.InfraStructure.User
                 query = query.Where(predicate);
             }
 
-            query.Include(u => u.Roles)
-                .ThenInclude(ur => ur.Role)
-                .ThenInclude(ur => ur.Permissions)
-                .ThenInclude(rp => rp.Permission);
+            query = query.Include(u => u.Roles)
+                .ThenInclude(r => r.Role)
+                .ThenInclude(rp => rp.Permissions)
+                .ThenInclude(p => p.Permission);
 
             List<DomainUser> users = [];
             foreach (var user in await query.ToListAsync()) 
