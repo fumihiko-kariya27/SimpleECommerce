@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SimpleECommerce.Config;
 using SimpleECommerce.Controllers.Auth.Ext;
 using SimpleECommerce.Controllers.Filter;
 using SimpleECommerce.InfraStructure;
@@ -47,6 +48,9 @@ builder.Services.AddControllersWithViews(options => {
 
 builder.Services.AddCookeiAythentication();
 builder.Services.AddPermissionPolicies();
+
+// ポイント付与関連の設定情報の読み込み
+builder.Services.AddOptions<PointSettings>().Bind(builder.Configuration.GetSection(nameof(PointSettings)));
 
 var app = builder.Build();
 
