@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.Models.Catalog;
 using SimpleECommerce.Models.Purchase;
+using SimpleECommerce.Models.Stock;
 using SimpleECommerce.Models.User;
 using SimpleECommerce.Models.User.Authorization;
 
@@ -14,6 +15,8 @@ namespace SimpleECommerce.Models.Context
         }
 
         public DbSet<ProductModel> Products { get; set; }
+
+        public DbSet<InventoryModel> Inventories { get; set; }
 
         public DbSet<CategoryModel> Categories { get; set; }
 
@@ -38,6 +41,12 @@ namespace SimpleECommerce.Models.Context
             modelBuilder.Entity<UserModel>().Property(e => e.Id).ValueGeneratedNever();
             modelBuilder.Entity<RoleModel>().Property(e => e.Id).ValueGeneratedNever();
             modelBuilder.Entity<PermissionModel>().Property(e => e.Id).ValueGeneratedNever();
+
+            modelBuilder.Entity<InventoryModel>()
+                .HasOne(i => i.Product)
+                .WithMany(p => p.Inventory)
+                .HasForeignKey(i => new { i.Id, i.CategoryId })
+                .HasPrincipalKey(p => new { p.Id, p.CategoryId });
         }
     }
 }
