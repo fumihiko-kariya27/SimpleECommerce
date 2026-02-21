@@ -1,4 +1,6 @@
-﻿using SimpleECommerce.Domain.Purchase.Choise;
+﻿using Microsoft.Extensions.Options;
+using SimpleECommerce.Config;
+using SimpleECommerce.Domain.Purchase.Choise;
 using SimpleECommerce.Domain.Purchase.Payment;
 using SimpleECommerce.Domain.User;
 using SimpleECommerce.Service.User;
@@ -9,11 +11,13 @@ namespace SimpleECommerce.Service.Purchase
     {
         private readonly IPurchasePointRepository _repository;
         private readonly IUserService _userService;
+        private readonly PointSettings _pointSettings;
 
-        public PurchasePointServiceImpl(IPurchasePointRepository repository, IUserService userService)
+        public PurchasePointServiceImpl(IPurchasePointRepository repository, IUserService userService, IOptions<PointSettings> pointSettings)
         { 
             _repository = repository;
             _userService = userService;
+            _pointSettings = pointSettings.Value;
         }
 
         public async Task AddHistoryAsync(PurchasePointHistory history)
@@ -42,7 +46,7 @@ namespace SimpleECommerce.Service.Purchase
             }
 
             // 本来は日次単位で最初にログインした時に付与であるが、いったん実装保留
-            PurchasePoint bonus = PurchasePoint.LoginBonusPerDay;
+            PurchasePoint bonus = new PurchasePoint(_pointSettings.DailyLoginPoint);
             PurchasePointHistory history = PurchasePointHistory.Earn(customerId, bonus);
             await _repository.InsertHistoryAsync(history);
         }
