@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleECommerce.Models.Context;
 
@@ -11,9 +12,11 @@ using SimpleECommerce.Models.Context;
 namespace SimpleECommerce.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    partial class ECommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260221124444_AddInventoryModel")]
+    partial class AddInventoryModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -141,13 +144,15 @@ namespace SimpleECommerce.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<int?>("ProductModelCategoryId")
+                        .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
+                    b.Property<int?>("ProductModelId")
                         .HasColumnType("int");
 
                     b.HasKey("Id", "CategoryId");
+
+                    b.HasIndex("ProductModelId", "ProductModelCategoryId");
 
                     b.ToTable("Inventories");
                 });
@@ -293,13 +298,9 @@ namespace SimpleECommerce.Migrations
 
             modelBuilder.Entity("SimpleECommerce.Models.Stock.InventoryModel", b =>
                 {
-                    b.HasOne("SimpleECommerce.Models.Catalog.ProductModel", "Product")
+                    b.HasOne("SimpleECommerce.Models.Catalog.ProductModel", null)
                         .WithMany("Inventory")
-                        .HasForeignKey("Id", "CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
+                        .HasForeignKey("ProductModelId", "ProductModelCategoryId");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.User.Authorization.RolePermissionModel", b =>

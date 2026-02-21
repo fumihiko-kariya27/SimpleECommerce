@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.Domain.Catalog;
 using SimpleECommerce.Domain.Catalog.Categories;
+using SimpleECommerce.Models.Stock;
 using System.ComponentModel.DataAnnotations;
 
 namespace SimpleECommerce.Models.Catalog;
@@ -21,6 +22,8 @@ public class ProductModel
     public int Price { get; set; }
 
     public ICollection<ProductImageModel> Images { get; } = new List<ProductImageModel>();
+
+    public ICollection<InventoryModel> Inventory { get; } = new List<InventoryModel>();
 
     public DateTime CreatedAt { get; set; }
 
