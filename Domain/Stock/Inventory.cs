@@ -9,12 +9,12 @@ namespace SimpleECommerce.Domain.Stock
         // 在庫数
         private int _quantity;
 
-        public Inventory(ProductId productId)
+        public Inventory(ProductId productId, int quantity = 0)
         {
             ArgumentNullException.ThrowIfNull(productId);
 
             _productId = productId;
-            _quantity = 0;
+            _quantity = quantity;
         }
 
         public int Quantity => _quantity;
@@ -26,7 +26,7 @@ namespace SimpleECommerce.Domain.Stock
                 throw new ArgumentException("追加在庫数に負数を指定することはできません");
             }
 
-            Interlocked.Add(ref _quantity, addtional);
+            _quantity += addtional;
             return _quantity;
         }
 
@@ -37,7 +37,7 @@ namespace SimpleECommerce.Domain.Stock
                 throw new ArgumentException($"在庫数は{_quantity}のため、{reduced}個在庫を減らすことはできません");
             }
 
-            Interlocked.Exchange(ref _quantity, _quantity - reduced);
+            _quantity -= reduced;
             return _quantity;
         }
     }

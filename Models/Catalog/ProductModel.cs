@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.Domain.Catalog;
 using SimpleECommerce.Domain.Catalog.Categories;
+using SimpleECommerce.Domain.Catalog.Factory;
 using SimpleECommerce.Models.Stock;
 using System.ComponentModel.DataAnnotations;
 
@@ -23,17 +24,14 @@ public class ProductModel
 
     public ICollection<ProductImageModel> Images { get; } = new List<ProductImageModel>();
 
-    public ICollection<InventoryModel> Inventory { get; } = new List<InventoryModel>();
+    public InventoryModel Inventory { get; set; } = null!;
 
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
 
-    internal Product ToDomain()
+    internal Product ToDomain(ProductFactory factory)
     {
-        ProductName productName = new (Name);
-        Description description = new(Description);
-        ProductPrice price = new(Price);
-        return new(CategoryId, Id, productName, description, price);
+        return factory.Create(Id, CategoryId, Name, Description, Price, Inventory.Quantity);
     }
 }

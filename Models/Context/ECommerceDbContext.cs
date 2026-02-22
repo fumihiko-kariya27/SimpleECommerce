@@ -44,9 +44,9 @@ namespace SimpleECommerce.Models.Context
 
             modelBuilder.Entity<InventoryModel>()
                 .HasOne(i => i.Product)
-                .WithMany(p => p.Inventory)
-                .HasForeignKey(i => new { i.Id, i.CategoryId })
-                .HasPrincipalKey(p => new { p.Id, p.CategoryId });
+                .WithOne(p => p.Inventory)
+                .HasForeignKey<InventoryModel>(i => new { i.Id, i.CategoryId })
+                .HasPrincipalKey<ProductModel>(p => new { p.Id, p.CategoryId });
         }
     }
 }

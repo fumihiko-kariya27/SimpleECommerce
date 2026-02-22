@@ -1,8 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.Domain.Catalog;
 using SimpleECommerce.Domain.Catalog.Categories;
+using SimpleECommerce.Domain.Catalog.Factory;
 using SimpleECommerce.Models.Catalog;
 using SimpleECommerce.Models.Context;
+using SimpleECommerce.Models.Stock;
 using SimpleECommerce.Service.Catalog;
 using System.Collections.Immutable;
 using System.Linq.Expressions;
@@ -12,16 +14,18 @@ namespace SimpleECommerce.InfraStructure.Catalog
     internal class ProductRepositoryImpl : IProductRepository
     {
         private readonly ECommerceDbContext context;
+        private readonly ProductFactory factory;
 
-        public ProductRepositoryImpl(ECommerceDbContext context)
+        public ProductRepositoryImpl(ECommerceDbContext context, ProductFactory factory)
         { 
             this.context = context;
+            this.factory = factory;
         }
 
         public async Task<(bool, Product?)> TrySelect(CategoryId category, int productId)
         {
             ProductModel? ret = await context.Products.Where(p => p.Category.Id == category && p.Id == productId).FirstOrDefaultAsync();
-            return ret != null ? (true, ret.ToDomain()) : (false, null);
+            return ret != null ? (true, ret.ToDomain(factory)) : (false, null);
         }
 
         public async Task<IReadOnlyList<Product>> SelectAsync(Expression<Func<ProductModel, bool>>? predicate = null)
@@ -33,12 +37,12 @@ namespace SimpleECommerce.InfraStructure.Catalog
                 // 検索条件が指定されている場合のみ、指定条件でフィルタリングする
                 query = query.Where(predicate);
             }
-            query.Include(p => p.Images);
+            query = query.Include(p => p.Images).Include(p => p.Inventory);
             List<ProductModel> products = await query.ToListAsync();
             List<Product> ret = new List<Product>();
             foreach (ProductModel product in products)
             {
-                Product p = product.ToDomain();
+                Product p = product.ToDomain(factory);
                 foreach (ProductImageModel im in product.Images)
                 {
                     ProductImage image = new ProductImage(im.FileName, im.ContentType, im.ImageData);
@@ -75,6 +79,12 @@ namespace SimpleECommerce.InfraStructure.Catalog
                 await context.AddAsync(image);
             }
 
+            InventoryModel inventory = new();
+            inventory.Id = product.Id.Id;
+            inventory.CategoryId = product.Id.Category;
+            inventory.Quantity = product.Inventory.Quantity;
+            await context.AddAsync(inventory);
+
             await context.SaveChangesAsync();
         }
 
@@ -97,7 +107,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
         public async Task<(bool, Product?)> SelectByPrimayAsync(ProductId productId)
         {
             ProductModel? ret = await context.Products.Where(p => p.CategoryId == productId.Category && p.Id == productId.Id).SingleOrDefaultAsync();
-            return ret != null ? (true, ret.ToDomain()) : (false, null);
+            return ret != null ? (true, ret.ToDomain(factory)) : (false, null);
         }
 
         public async Task UpDateAsync(Product product)

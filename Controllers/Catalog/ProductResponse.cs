@@ -25,6 +25,9 @@ namespace SimpleECommerce.Controllers.Catalog
 
         public IList<int> imageSequence = new List<int>();
 
+        [Display(Name = "在庫数")]
+        public int Inventory { get; set; }
+
         public ProductResponse(Product domainProduct)
         {
             this.Category = domainProduct.Id.Category;
@@ -32,6 +35,7 @@ namespace SimpleECommerce.Controllers.Catalog
             this.Name = domainProduct.Name.Name;
             this.Desc = domainProduct.Description.Desc;
             this.Price = domainProduct.Price.price;
+            this.Inventory = domainProduct.Inventory.Quantity;
             for (int i = 0; i < domainProduct.Images.Count; i++)
             {
                 imageSequence.Add(i + 1);
