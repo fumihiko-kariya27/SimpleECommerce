@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SimpleECommerce.Domain.Catalog;
 using SimpleECommerce.Domain.Catalog.Categories;
+using SimpleECommerce.Domain.Catalog.Factory;
 using SimpleECommerce.Service.Catalog;
 using SimpleECommerce.Service.Image;
 
@@ -10,10 +11,12 @@ namespace SimpleECommerce.Controllers.Catalog
     public class ProductController : Controller
     {
         private readonly IProductService service;
+        private readonly ProductFactory factory;
 
-        public ProductController(IProductService service) 
+        public ProductController(IProductService service, ProductFactory factory) 
         { 
             this.service = service;
+            this.factory = factory;
         }
 
         [Authorize(Policy = "ViewProduct")]
@@ -54,7 +57,7 @@ namespace SimpleECommerce.Controllers.Catalog
 
             try
             {
-                Product product = request.ToDomain();
+                Product product = request.ToDomain(factory);
                 await service.RegisterAsync(product);
                 return RedirectToAction(nameof(Index));
             }
@@ -100,7 +103,7 @@ namespace SimpleECommerce.Controllers.Catalog
                 return View(request);
             }
 
-            Product product = request.ToDomain();
+            Product product = request.ToDomain(factory);
 
             if (!await service.IsExistAsync(product))
             {
@@ -127,7 +130,7 @@ namespace SimpleECommerce.Controllers.Catalog
         [Authorize(Policy = "ViewProduct")]
         public async Task<IActionResult> IsUniqueProduct([Bind("Category,Id")] ProductRequest request)
         {
-            Product product = request.ToDomain();
+            Product product = request.ToDomain(factory);
             if (await service.IsUniqueProduct(product))
             {
                 return Json("指定の商品コードは既に登録されています");

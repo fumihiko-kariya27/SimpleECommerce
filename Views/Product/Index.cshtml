@@ -70,6 +70,10 @@
             <h3 class="product-name">@p.Name</h3>
             <p class="product-description">@p.Desc</p>
             <p class="product-price">@p.Price.ToString("C0")</p>
+            <p class="product-inventory">在庫数 @p.Inventory 個</p>
+        </div>
+        <div class="product-actions">
+            <button class="btn-buy">購入</button>
         </div>
     </div>
 }

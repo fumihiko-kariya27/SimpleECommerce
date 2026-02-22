@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SimpleECommerce.Models.Context;
 
@@ -11,9 +12,11 @@ using SimpleECommerce.Models.Context;
 namespace SimpleECommerce.Migrations
 {
     [DbContext(typeof(ECommerceDbContext))]
-    partial class ECommerceDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260221135456_AddRowVersionToInventory")]
+    partial class AddRowVersionToInventory
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,7 +38,7 @@ namespace SimpleECommerce.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.Catalog.ProductImageModel", b =>
@@ -71,7 +74,7 @@ namespace SimpleECommerce.Migrations
 
                     b.HasIndex("ProductId", "ProductCategoryId");
 
-                    b.ToTable("ProductImages", (string)null);
+                    b.ToTable("ProductImages");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.Catalog.ProductModel", b =>
@@ -103,7 +106,7 @@ namespace SimpleECommerce.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.ToTable("Products", (string)null);
+                    b.ToTable("Products");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.Purchase.PurchasePointHistoryModel", b =>
@@ -130,7 +133,7 @@ namespace SimpleECommerce.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("PurchasePointHistories", (string)null);
+                    b.ToTable("PurchasePointHistories");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.Stock.InventoryModel", b =>
@@ -155,7 +158,7 @@ namespace SimpleECommerce.Migrations
 
                     b.HasKey("Id", "CategoryId");
 
-                    b.ToTable("Inventories", (string)null);
+                    b.ToTable("Inventories");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.User.Authorization.PermissionModel", b =>
@@ -173,7 +176,7 @@ namespace SimpleECommerce.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Permissions", (string)null);
+                    b.ToTable("Permissions");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.User.Authorization.RoleModel", b =>
@@ -191,7 +194,7 @@ namespace SimpleECommerce.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Roles", (string)null);
+                    b.ToTable("Roles");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.User.Authorization.RolePermissionModel", b =>
@@ -206,7 +209,7 @@ namespace SimpleECommerce.Migrations
 
                     b.HasIndex("PermissionId");
 
-                    b.ToTable("RolePermissions", (string)null);
+                    b.ToTable("RolePermissions");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.User.UserModel", b =>
@@ -240,7 +243,7 @@ namespace SimpleECommerce.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.User.UserRoleModel", b =>
@@ -255,7 +258,7 @@ namespace SimpleECommerce.Migrations
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("SimpleECommerce.Models.Catalog.ProductImageModel", b =>

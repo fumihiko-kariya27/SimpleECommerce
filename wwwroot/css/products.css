@@ -37,6 +37,7 @@
 
 .product-info {
     margin-top: 10px;
+    flex-grow: 1;
 }
 
 .product-name {
@@ -56,6 +57,27 @@
     margin-top: 8px;
     font-size: 1rem;
     color: #333;
+}
+
+.product-actions {
+    margin-top: 12px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-buy {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.btn-buy:hover {
+    background-color: #0056b3;
 }
 
 .card-menu {

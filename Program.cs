@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.Config;
 using SimpleECommerce.Controllers.Auth.Ext;
 using SimpleECommerce.Controllers.Filter;
+using SimpleECommerce.Domain.Catalog.Factory;
 using SimpleECommerce.InfraStructure;
 using SimpleECommerce.InfraStructure.Catalog;
 using SimpleECommerce.InfraStructure.Image;
@@ -37,6 +38,8 @@ builder.Services.AddScoped<IUserService, UserServiceImpl>();
 builder.Services.AddScoped<IPurchasePointRepository, PurchasePointRepositoryImpl>();
 builder.Services.AddScoped<IPurchasePointService, PurchasePointServiceImpl>();
 builder.Services.AddScoped<IImageStorage, ImageStorageImpl>();
+builder.Services.AddSingleton<IProductIdGenerator, SimpleProductIdGenerator>();
+builder.Services.AddSingleton<ProductFactory>();
 builder.Services.AddSingleton(typeof(IAppLogger<>), typeof(ConsoleLogger<>));
 builder.Services.AddSingleton<ActionFilter>();
 

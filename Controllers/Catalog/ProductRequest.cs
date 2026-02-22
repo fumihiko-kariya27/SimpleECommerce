@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SimpleECommerce.Domain.Catalog;
 using SimpleECommerce.Domain.Catalog.Categories;
+using SimpleECommerce.Domain.Catalog.Factory;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.CompilerServices;
@@ -36,12 +37,9 @@ namespace SimpleECommerce.Controllers.Catalog
         [Display(Name = "商品画像")]
         public IFormFile[] UploadFiles { get; set; } = Array.Empty<FormFile>();
 
-        internal Product ToDomain()
+        internal Product ToDomain(ProductFactory factory)
         {
-            ProductName name = new ProductName(Name);
-            Description description = new Description(Desc);
-            ProductPrice price = new ProductPrice(Price);
-            Product ret = new Product(Category, Id, name, description, price);
+            Product ret = factory.Create(Id, Category, Name, Desc ?? "", Price);
             foreach (IFormFile file in UploadFiles)
             {
                 byte[] data = Array.Empty<byte>();
