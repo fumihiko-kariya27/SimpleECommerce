@@ -59,10 +59,10 @@ namespace SimpleECommerce.Controllers.Catalog
         {
             ProductRequest ret = new();
             ret.Category = org.Id.Category;
-            ret.Id = org.Id.Id;
-            ret.Name = org.Name.Name;
-            ret.Desc = org.Description.Desc;
-            ret.Price = org.Price.price;
+            ret.Id = org.Id.Value;
+            ret.Name = org.Name.Value;
+            ret.Desc = org.Description.Value;
+            ret.Price = org.Price.Value;
             return ret;
         }
     }

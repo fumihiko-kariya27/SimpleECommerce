@@ -12,7 +12,7 @@ namespace SimpleECommerce.Domain.Catalog
             this.description = description?.Trim();
         }
 
-        internal string Desc
+        internal string Value
         {
             get
             {

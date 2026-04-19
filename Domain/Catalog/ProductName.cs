@@ -2,7 +2,7 @@
 {
     public class ProductName
     {
-        public string Name { get; init; } = string.Empty;
+        public string Value { get; init; } = string.Empty;
 
         public ProductName(string name)
         {
@@ -11,7 +11,7 @@
                 throw new ArgumentException("商品名に空白文字のみ、あるいはnullは設定できません");
             }
 
-            this.Name = name.Trim();
+            this.Value = name.Trim();
         }
     }
 }

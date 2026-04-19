@@ -29,7 +29,7 @@ namespace SimpleECommerce.Domain.Catalog
 
         public override string ToString()
         {
-            return $"商品コード:{Id.Code} 商品名:{Name.Name}";
+            return $"商品コード:{Id.Code} 商品名:{Name.Value}";
         }
 
         public bool Equals(Product? other)

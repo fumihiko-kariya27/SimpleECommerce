@@ -30,6 +30,25 @@
         </div>
     </div>
 </div>
+<div id="purchase-modal" class="modal">
+    <div class="modal-content purchase-modal-content">
+        <h2 id="purchase-name"></h2>
+
+        <p class="purchase-price">価格: <span id="purchase-price"></span></p>
+        <p class="purchase-stock">在庫: <span id="purchase-stock"></span> 個</p>
+
+        <div class="quantity-selector">
+            <button id="qty-minus" class="qty-btn">−</button>
+            <span id="purchase-quantity">1</span>
+            <button id="qty-plus" class="qty-btn">＋</button>
+        </div>
+
+        <div class="modal-buttons">
+            <button id="purchase-add" class="btn btn-primary">追加</button>
+            <button id="purchase-cancel" class="btn btn-secondary">キャンセル</button>
+        </div>
+    </div>
+</div>
 <div class="product-grid">
 @foreach (var p in Model)
 {
@@ -73,7 +92,13 @@
             <p class="product-inventory">在庫数 @p.Inventory 個</p>
         </div>
         <div class="product-actions">
-            <button class="btn-buy">購入</button>
+            <button 
+                class="btn-buy"
+                data-name="@p.Name"
+                data-price="@p.Price"
+                data-stock="@p.Inventory"
+                data-id="@p.Id"
+            >購入</button>
         </div>
     </div>
 }

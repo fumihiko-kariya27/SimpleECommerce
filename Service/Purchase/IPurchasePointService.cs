@@ -1,5 +1,4 @@
-﻿using SimpleECommerce.Domain.Purchase.Choise;
-using SimpleECommerce.Domain.Purchase.Payment;
+﻿using SimpleECommerce.Domain.Purchase.Payment;
 using SimpleECommerce.Domain.User;
 
 namespace SimpleECommerce.Service.Purchase
