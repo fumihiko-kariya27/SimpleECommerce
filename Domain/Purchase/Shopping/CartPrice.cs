@@ -1,0 +1,36 @@
+﻿namespace SimpleECommerce.Domain.Purchase.Shopping
+{
+    internal class CartPrice : IEquatable<CartPrice>
+    {
+        internal int Value { get; init; }
+
+        internal CartPrice(int value) 
+        {
+            if (value < 0)
+            {
+                throw new ArgumentOutOfRangeException("注文金額に負数は設定できません");
+            }
+
+            this.Value = value;
+        }
+
+        public bool Equals(CartPrice? other)
+        {
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (other is null || this.GetType() != other.GetType())
+            {
+                return false;
+            }
+
+            return this.Value == other.Value;
+        }
+
+        public override bool Equals(object? obj) => Equals(obj as CartPrice);
+
+        public override int GetHashCode() => Value.GetHashCode();
+    }
+}

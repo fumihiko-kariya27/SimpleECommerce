@@ -31,10 +31,10 @@ namespace SimpleECommerce.Controllers.Catalog
         public ProductResponse(Product domainProduct)
         {
             this.Category = domainProduct.Id.Category;
-            this.Id = domainProduct.Id.Id;
-            this.Name = domainProduct.Name.Name;
-            this.Desc = domainProduct.Description.Desc;
-            this.Price = domainProduct.Price.price;
+            this.Id = domainProduct.Id.Value;
+            this.Name = domainProduct.Name.Value;
+            this.Desc = domainProduct.Description.Value;
+            this.Price = domainProduct.Price.Value;
             this.Inventory = domainProduct.Inventory.Quantity;
             for (int i = 0; i < domainProduct.Images.Count; i++)
             {

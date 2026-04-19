@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
 using SimpleECommerce.Config;
-using SimpleECommerce.Domain.Purchase.Choise;
 using SimpleECommerce.Domain.Purchase.Payment;
 using SimpleECommerce.Domain.User;
 using SimpleECommerce.Service.User;

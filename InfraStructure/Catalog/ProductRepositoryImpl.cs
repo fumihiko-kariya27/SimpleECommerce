@@ -56,11 +56,11 @@ namespace SimpleECommerce.InfraStructure.Catalog
         public async Task InsertAsync(Product product)
         {
             ProductModel row = new();
-            row.Id = product.Id.Id;
+            row.Id = product.Id.Value;
             row.CategoryId = product.Id.Category;
-            row.Name = product.Name.Name;
-            row.Description = product.Description.Desc;
-            row.Price = product.Price.price;
+            row.Name = product.Name.Value;
+            row.Description = product.Description.Value;
+            row.Price = product.Price.Value;
             row.CreatedAt = DateTime.Now;
             row.UpdatedAt = DateTime.Now;
 
@@ -70,7 +70,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
             {
                 ProductImageModel image = new();
                 image.CategoryId = product.Id.Category;
-                image.ProductId = product.Id.Id;
+                image.ProductId = product.Id.Value;
                 image.ImageData = product.Images[i].Data;
                 image.FileName = product.Images[i].FileName;
                 image.ContentType = product.Images[i].ContentType;
@@ -80,7 +80,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
             }
 
             InventoryModel inventory = new();
-            inventory.Id = product.Id.Id;
+            inventory.Id = product.Id.Value;
             inventory.CategoryId = product.Id.Category;
             inventory.Quantity = product.Inventory.Quantity;
             await context.AddAsync(inventory);
@@ -92,7 +92,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
         { 
             ProductImageModel? model = await context.ProductImages.Where(i => 
                 i.CategoryId == id.Category && 
-                i.ProductId == id.Id && 
+                i.ProductId == id.Value && 
                 i.Sequence == sequence
             ).SingleOrDefaultAsync();
 
@@ -106,7 +106,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
 
         public async Task<(bool, Product?)> SelectByPrimayAsync(ProductId productId)
         {
-            ProductModel? ret = await context.Products.Where(p => p.CategoryId == productId.Category && p.Id == productId.Id).SingleOrDefaultAsync();
+            ProductModel? ret = await context.Products.Where(p => p.CategoryId == productId.Category && p.Id == productId.Value).SingleOrDefaultAsync();
             return ret != null ? (true, ret.ToDomain(factory)) : (false, null);
         }
 
@@ -128,7 +128,7 @@ namespace SimpleECommerce.InfraStructure.Catalog
 
         public async Task DeleteByPrimaryAsync(ProductId productId)
         {
-            ProductModel? ret = await context.Products.Where(p => p.CategoryId == productId.Category && p.Id == productId.Id).SingleOrDefaultAsync();
+            ProductModel? ret = await context.Products.Where(p => p.CategoryId == productId.Category && p.Id == productId.Value).SingleOrDefaultAsync();
             if (ret != null)
             {
                 context.Products.Remove(ret);

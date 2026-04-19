@@ -2,7 +2,7 @@
 {
     public class ProductPrice : IComparable
     {
-        public int price { get; init; }
+        public int Value { get; init; }
 
         private static readonly int MIN = 0;
 
@@ -13,7 +13,7 @@
                 throw new ArgumentException($"金額は{MIN}円以上である必要があります");
             }
 
-            this.price = price;
+            this.Value = price;
         }
 
         public int CompareTo(object? obj)
@@ -26,7 +26,7 @@
             if (obj is ProductPrice other)
             {
                 // 並べ替え順は既定で価格が安い順とする
-                return this.price - other.price;
+                return this.Value - other.Value;
             }
             else
             {

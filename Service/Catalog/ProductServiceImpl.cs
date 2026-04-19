@@ -24,7 +24,7 @@ namespace SimpleECommerce.Service.Catalog
 
         public async Task<bool> IsExistAsync(ProductId id)
         {
-            var (exist, _) = await repository.TrySelect(id.Category, id.Id);
+            var (exist, _) = await repository.TrySelect(id.Category, id.Value);
             return exist;
         }
 
@@ -35,7 +35,7 @@ namespace SimpleECommerce.Service.Catalog
 
         public async Task<bool> IsUniqueProduct(Product product)
         {
-            IReadOnlyList<Product> ret = await repository.SelectAsync(p => p.Id == product.Id.Id && p.CategoryId == product.Id.Category);
+            IReadOnlyList<Product> ret = await repository.SelectAsync(p => p.Id == product.Id.Value && p.CategoryId == product.Id.Category);
             return ret.Count() > 0;
         }
 
