@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SimpleECommerce.Models.Catalog;
+using SimpleECommerce.Models.Context.Config;
 using SimpleECommerce.Models.Purchase;
+using SimpleECommerce.Models.Shopping;
 using SimpleECommerce.Models.Stock;
 using SimpleECommerce.Models.User;
 using SimpleECommerce.Models.User.Authorization;
@@ -24,6 +26,8 @@ namespace SimpleECommerce.Models.Context
 
         public DbSet<UserModel> Users { get; set; }
 
+        public DbSet<CartLineModel> CartLines { get; set; }
+
         public DbSet<RoleModel> Roles { get; set; }
 
         public DbSet<UserRoleModel> UserRoles { get; set; }
@@ -42,11 +46,8 @@ namespace SimpleECommerce.Models.Context
             modelBuilder.Entity<RoleModel>().Property(e => e.Id).ValueGeneratedNever();
             modelBuilder.Entity<PermissionModel>().Property(e => e.Id).ValueGeneratedNever();
 
-            modelBuilder.Entity<InventoryModel>()
-                .HasOne(i => i.Product)
-                .WithOne(p => p.Inventory)
-                .HasForeignKey<InventoryModel>(i => new { i.Id, i.CategoryId })
-                .HasPrincipalKey<ProductModel>(p => new { p.Id, p.CategoryId });
+            new InventoryEntityTypeConfiguration().Configure(modelBuilder.Entity<InventoryModel>());
+            new CartLineEntityTypeConfiguration().Configure(modelBuilder.Entity<CartLineModel>());
         }
     }
 }
