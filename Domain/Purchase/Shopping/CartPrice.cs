@@ -1,10 +1,10 @@
 ﻿namespace SimpleECommerce.Domain.Purchase.Shopping
 {
-    internal class CartPrice : IEquatable<CartPrice>
+    public class CartPrice : IEquatable<CartPrice>
     {
-        internal int Value { get; init; }
+        public int Value { get; init; }
 
-        internal CartPrice(int value) 
+        public CartPrice(int value) 
         {
             if (value < 0)
             {

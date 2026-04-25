@@ -19,8 +19,8 @@ namespace SimpleECommerce.Service.Catalog
 
         Task<bool> IsUniqueProduct(Product product);
 
-        Task<Product> Get(ProductId productId);
+        Task<Product> GetAsync(ProductId productId);
 
-        Task Delete(ProductId productId);
+        Task DeleteAsync(ProductId productId);
     }
 }

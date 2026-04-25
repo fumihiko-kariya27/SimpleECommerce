@@ -2,7 +2,7 @@
 
 namespace SimpleECommerce.Domain.Purchase.Shopping
 {
-    internal class CartLine : IEquatable<CartLine>
+    public class CartLine : IEquatable<CartLine>
     {
         public CartLineId Id { get; init; }
         internal ProductId ProductId { get; init; }
@@ -11,7 +11,9 @@ namespace SimpleECommerce.Domain.Purchase.Shopping
         public CartQuantity Quantity { get; private set; }
 
         internal CartLine(Product product, int quantity)
-        { 
+        {
+            ArgumentNullException.ThrowIfNull(product);
+
             this.Id = new CartLineId();
             this.ProductId = product.Id;
             this.Name = new ProductName(product.Name.Value);
@@ -24,9 +26,9 @@ namespace SimpleECommerce.Domain.Purchase.Shopping
             get { return new CartLinePrice(Price.Value * Quantity.Value); }
         }
 
-        internal void ChangeQuantity(int newValue)
+        internal void ChangeQuantity(CartQuantity newQuantity)
         {
-            this.Quantity = CartQuantity.ChangeQuantity(newValue);
+            this.Quantity = CartQuantity.ChangeQuantity(newQuantity);
         }
 
         public bool Equals(CartLine? other) => this == other;

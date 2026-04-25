@@ -6,7 +6,7 @@ namespace SimpleECommerce.Models.Shopping
 {
     public class CartLineModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         public int UserId { get; set; }
 
@@ -24,8 +24,8 @@ namespace SimpleECommerce.Models.Shopping
 
         public DateTime UpdatedAt { get; set; }
 
-        public ProductModel? Product { get; set; }
+        public ProductModel Product { get; set; } = null!;
 
-        public UserModel? User { get; set; }
+        public UserModel User { get; set; } = null!;
     }
 }

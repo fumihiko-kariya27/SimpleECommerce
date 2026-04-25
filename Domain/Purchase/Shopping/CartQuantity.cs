@@ -3,7 +3,7 @@ using SimpleECommerce.Domain.Exception;
 
 namespace SimpleECommerce.Domain.Purchase.Shopping
 {
-    internal class CartQuantity : IEquatable<CartQuantity>
+    public class CartQuantity : IEquatable<CartQuantity>
     {
         private static readonly int MIN = 1;
         // 1商品当たりの同時購入数上限
@@ -11,7 +11,7 @@ namespace SimpleECommerce.Domain.Purchase.Shopping
 
         public int Value { get; init; }
 
-        internal CartQuantity(int value)
+        public CartQuantity(int value)
         {
             if (value < MIN || MAX < value)
             { 
@@ -21,14 +21,14 @@ namespace SimpleECommerce.Domain.Purchase.Shopping
             this.Value = value;
         }
 
-        internal static CartQuantity ChangeQuantity(int newValue)
+        public static CartQuantity ChangeQuantity(CartQuantity newQuantity)
         { 
-            if (newValue < MIN || MAX < newValue)
+            if (newQuantity.Value < MIN || MAX < newQuantity.Value)
             {
                 throw new QuantityOutOfRangeException($"1商品当たりの注文可能個数は{MIN}個から{MAX}個までです");
             }
 
-            return new CartQuantity(newValue);
+            return new CartQuantity(newQuantity.Value);
         }
 
         public bool Equals(CartQuantity? other)
@@ -49,5 +49,10 @@ namespace SimpleECommerce.Domain.Purchase.Shopping
         public override bool Equals(object? obj) => Equals(obj as CartQuantity);
 
         public override int GetHashCode() => Value.GetHashCode();
+
+        public static CartQuantity operator +(CartQuantity c1, CartQuantity c2)
+        {
+            return new CartQuantity(c1.Value + c2.Value);
+        }
     }
 }

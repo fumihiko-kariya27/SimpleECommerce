@@ -1,12 +1,17 @@
 ﻿namespace SimpleECommerce.Domain.Purchase.Shopping
 {
-    internal class CartLineId : IEquatable<CartLineId>
+    public class CartLineId : IEquatable<CartLineId>
     {
         private readonly Guid Value;
 
-        internal CartLineId() 
+        public CartLineId() 
         { 
             Value = Guid.NewGuid();
+        }
+
+        public override string ToString()
+        {
+            return Value.ToString();
         }
 
         public override bool Equals(object? obj) => Equals(obj as CartLineId);

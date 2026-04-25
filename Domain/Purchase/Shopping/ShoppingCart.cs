@@ -1,18 +1,23 @@
 ﻿namespace SimpleECommerce.Domain.Purchase.Shopping
 {
-    internal class ShoppingCart
+    public class ShoppingCart
     {
         // 一度の購入における商品数上限
         private static readonly int CAPACITY = 100;
 
         private List<CartLine> cart;
 
-        internal ShoppingCart()
+        public ShoppingCart()
         {
             cart = new List<CartLine>(CAPACITY);
         }
 
-        internal void Add(CartLine line)
+        public static ShoppingCart Empty()
+        { 
+            return new ShoppingCart();
+        }
+
+        public void Add(CartLine line)
         {
             if (CAPACITY <= cart.Count)
             {
@@ -23,7 +28,7 @@
             if (existing != null)
             {
                 // 同じ商品が既にカートに入っている場合は1行にまとめる
-                existing.ChangeQuantity(existing.Quantity.Value + line.Quantity.Value);
+                existing.ChangeQuantity(existing.Quantity + line.Quantity);
             }
             else
             {
@@ -31,7 +36,7 @@
             }
         }
 
-        internal void Remove(CartLine line)
+        public void Remove(CartLine line)
         {
             bool ret = cart.Remove(line);
             if (!ret)
@@ -40,12 +45,17 @@
             }
         }
 
-        internal void Clear()
+        public void Clear()
         {
             cart.Clear();
         }
 
-        internal CartPrice Amount
+        public bool Contains(CartLine line)
+        { 
+            return cart.Contains(line);
+        }
+
+        public CartPrice Amount
         {
             get
             {
@@ -55,6 +65,14 @@
                     total += line.TotalPrice.Value;
                 }
                 return new CartPrice(total);
+            }
+        }
+
+        public IReadOnlyCollection<CartLine> Contents
+        {
+            get 
+            {
+                return cart.AsReadOnly();
             }
         }
     }

@@ -66,7 +66,7 @@ namespace SimpleECommerce.Service.Catalog
             return image!;
         }
 
-        public async Task<Product> Get(ProductId productId)
+        public async Task<Product> GetAsync(ProductId productId)
         {
             var (exist, product) = await repository.SelectByPrimayAsync(productId);
             if (!exist)
@@ -78,7 +78,7 @@ namespace SimpleECommerce.Service.Catalog
             return product!;
         }
 
-        public async Task Delete(ProductId productId)
+        public async Task DeleteAsync(ProductId productId)
         {
             await repository.DeleteByPrimaryAsync(productId);
         }

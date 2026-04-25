@@ -10,6 +10,7 @@ using SimpleECommerce.InfraStructure.Image;
 using SimpleECommerce.InfraStructure.Logging;
 using SimpleECommerce.InfraStructure.Logging.Impl;
 using SimpleECommerce.InfraStructure.Purchase;
+using SimpleECommerce.InfraStructure.Purchase.Shopping;
 using SimpleECommerce.InfraStructure.User;
 using SimpleECommerce.Middleware;
 using SimpleECommerce.Models.Context;
@@ -17,7 +18,9 @@ using SimpleECommerce.Models.User.Authorization;
 using SimpleECommerce.Service.Catalog;
 using SimpleECommerce.Service.Image;
 using SimpleECommerce.Service.Purchase;
+using SimpleECommerce.Service.Purchase.Shopping;
 using SimpleECommerce.Service.User;
+using StackExchange.Redis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +33,14 @@ builder.Services.AddDbContext<ECommerceDbContext>(
     )
 );
 
+// Redisê⁄ë±
+builder.Services.AddSingleton<IConnectionMultiplexer>(sp =>
+{
+    var configuration = ConfigurationOptions.Parse(builder.Configuration.GetConnectionString("Redis"));
+    configuration.AbortOnConnectFail = false;
+    return ConnectionMultiplexer.Connect(configuration);
+});
+
 // DIëŒèÃÇ∆Ç∑ÇÈÉNÉâÉXÇÃìoò^
 builder.Services.AddScoped<IProductRepository, ProductRepositoryImpl>();
 builder.Services.AddScoped<IProductService, ProductServiceImpl>();
@@ -37,6 +48,7 @@ builder.Services.AddScoped<IUserRepository, UserRepositoryImpl>();
 builder.Services.AddScoped<IUserService, UserServiceImpl>();
 builder.Services.AddScoped<IPurchasePointRepository, PurchasePointRepositoryImpl>();
 builder.Services.AddScoped<IPurchasePointService, PurchasePointServiceImpl>();
+builder.Services.AddScoped<ICartRepository, CartRepositoryImpl>();
 builder.Services.AddScoped<IImageStorage, ImageStorageImpl>();
 builder.Services.AddSingleton<IProductIdGenerator, SimpleProductIdGenerator>();
 builder.Services.AddSingleton<ProductFactory>();

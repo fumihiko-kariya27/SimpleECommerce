@@ -84,7 +84,7 @@ namespace SimpleECommerce.Controllers.Catalog
             try
             {
                 ProductId id = new ProductId((CategoryId)category, productId);
-                Product product = await service.Get(id);
+                Product product = await service.GetAsync(id);
                 return View(ProductRequest.GetEditOrigin(product));
             }
             catch (ProductNotExistException ex)
@@ -123,7 +123,7 @@ namespace SimpleECommerce.Controllers.Catalog
                 return NotFound();
             }
 
-            await service.Delete(new ProductId((CategoryId)category, productId));
+            await service.DeleteAsync(new ProductId((CategoryId)category, productId));
             return RedirectToAction(nameof(Index));
         }
 
